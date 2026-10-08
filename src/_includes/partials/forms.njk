@@ -1,0 +1,47 @@
+{# Form helpers. Usage:
+   {% from "partials/forms.njk" import form, field, select, textarea, check %}
+   {% call form("join", forms, site.phone, "Send") %} ...fields... {% endcall %}
+   The form id must exist in src/_data/forms.json. #}
+{% macro form(id, forms, phone, submit="Send", title="") %}
+<form class="form" id="form-{{ id }}" method="post" data-form data-endpoint="{{ forms[id].endpoint }}" data-phone="{{ phone }}"{% if forms[id].endpoint %} action="{{ forms[id].endpoint }}"{% endif %}>
+  {%- if title %}<h2 class="form__title">{{ title }}</h2>{% endif %}
+  <input type="hidden" name="_form" value="{{ id }}">
+  <div class="hp" aria-hidden="true"><label>Leave this field empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
+  {{ caller() }}
+  <p class="form__status" role="status" aria-live="polite" hidden></p>
+  <div><button class="btn" type="submit">{{ submit }}</button></div>
+</form>
+{% endmacro %}
+
+{% macro field(name, label, type="text", required=false, hint="", autocomplete="") %}
+<div class="field">
+  <label for="f-{{ name }}">{{ label }}{% if required %} <span class="sr-only">(required)</span>{% endif %}</label>
+  {%- if hint %}<span class="hint" id="h-{{ name }}">{{ hint }}</span>{% endif %}
+  <input id="f-{{ name }}" name="{{ name }}" type="{{ type }}"{% if required %} required{% endif %}{% if autocomplete %} autocomplete="{{ autocomplete }}"{% endif %}{% if hint %} aria-describedby="h-{{ name }}"{% endif %}>
+</div>
+{% endmacro %}
+
+{% macro select(name, label, options, required=false, hint="") %}
+<div class="field">
+  <label for="f-{{ name }}">{{ label }}{% if required %} <span class="sr-only">(required)</span>{% endif %}</label>
+  {%- if hint %}<span class="hint" id="h-{{ name }}">{{ hint }}</span>{% endif %}
+  <select id="f-{{ name }}" name="{{ name }}"{% if required %} required{% endif %}{% if hint %} aria-describedby="h-{{ name }}"{% endif %}>
+    {%- for o in options %}<option value="{{ o.value }}">{{ o.label }}</option>{% endfor %}
+  </select>
+</div>
+{% endmacro %}
+
+{% macro textarea(name, label, required=false, hint="") %}
+<div class="field">
+  <label for="f-{{ name }}">{{ label }}{% if required %} <span class="sr-only">(required)</span>{% endif %}</label>
+  {%- if hint %}<span class="hint" id="h-{{ name }}">{{ hint }}</span>{% endif %}
+  <textarea id="f-{{ name }}" name="{{ name }}"{% if required %} required{% endif %}{% if hint %} aria-describedby="h-{{ name }}"{% endif %}></textarea>
+</div>
+{% endmacro %}
+
+{% macro check(name, label, required=false) %}
+<div class="field field--check">
+  <input id="f-{{ name }}" name="{{ name }}" type="checkbox" value="yes"{% if required %} required{% endif %}>
+  <label for="f-{{ name }}">{{ label }}</label>
+</div>
+{% endmacro %}

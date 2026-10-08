@@ -1,0 +1,58 @@
+---
+layout: layouts/page.njk
+title: Sponsors
+section: support
+eyebrow: Support
+heading: Our sponsors
+lead: Local businesses help keep a volunteer department ready. Thank you.
+description: "The businesses that sponsor Bethany Fire, by tier, and how your business can become a sponsor."
+---
+{% from "partials/forms.njk" import form, field, select, textarea %}
+<section class="section">
+  <div class="container">
+    {%- if sponsors.sponsors.length %}
+    {%- for tier in sponsors.tiers %}
+    {%- set list = sponsors.sponsors | where("tier", tier.id) %}
+    {%- if list.length %}
+    <div class="tier">
+      <h2>{{ tier.name }}</h2>
+      <ul class="sponsor-grid">
+        {%- for s in list %}
+        <li>{% if s.url %}<a class="sponsor" href="{{ s.url }}" rel="noopener">{% else %}<span class="sponsor">{% endif %}
+          {%- if s.logo %}<img src="/assets/img/sponsors/{{ s.logo }}" alt="{{ s.name }}" loading="lazy">{% else %}{{ s.name }}{% endif -%}
+        {% if s.url %}</a>{% else %}</span>{% endif %}</li>
+        {%- endfor %}
+      </ul>
+    </div>
+    {%- endif %}
+    {%- endfor %}
+    {%- else %}
+    <p class="lead">Our sponsor wall is being updated. Thank you to every business that supports Bethany Fire.</p>
+    {%- endif %}
+  </div>
+</section>
+
+<section class="section section--deep" id="become-a-sponsor">
+  <div class="container split">
+    <div class="prose">
+      <p class="eyebrow">Become a sponsor</p>
+      <h2>Put your business behind your neighbors</h2>
+      <p>Sponsors are listed by tier: {% for t in sponsors.tiers %}{{ t.name }}{% if not loop.last %}, {% endif %}{% endfor %}. Tell us a bit about your business and which tier interests you, and we'll follow up with the details.</p>
+    </div>
+    <div>
+      {% call form("sponsor", forms, site.phone, "Send") %}
+        <div class="field-row">{{ field("business", "Business name", "text", true, "", "organization") }}{{ field("name", "Contact name", "text", true, "", "name") }}</div>
+        <div class="field-row">{{ field("email", "Email", "email", true, "", "email") }}{{ field("phone", "Phone (optional)", "tel", false, "", "tel") }}</div>
+        {{ select("tier", "Tier you're interested in", [
+          {value: "undecided", label: "Not sure yet"},
+          {value: "medal-of-honor", label: "Medal of Honor"},
+          {value: "allegiance", label: "Allegiance"},
+          {value: "patriot", label: "Patriot"},
+          {value: "liberty", label: "Liberty"},
+          {value: "freedom", label: "Freedom"}
+        ]) }}
+        {{ textarea("message", "Anything else? (optional)") }}
+      {% endcall %}
+    </div>
+  </div>
+</section>

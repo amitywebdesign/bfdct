@@ -1,0 +1,44 @@
+---
+layout: layouts/page.njk
+title: Events
+section: events
+eyebrow: Events
+heading: Events
+lead: Neighborhood nights, fundraisers, and every Tuesday at Headquarters.
+description: "Bethany Fire events: Trunk or Treat, the Chicken Bar-B-Que & Tailgate Concert, and open Tuesday nights at Headquarters."
+---
+<section class="section">
+  <div class="container split split--wide-left">
+    <div>
+      <h2>Coming up</h2>
+      <ul class="news-list">
+        {%- for ev in events.events | upcoming %}
+        <li class="news-item">
+          <h3><a href="{{ ev.url }}">{{ ev.title }}</a></h3>
+          <p class="muted">{% if ev.dateTBD %}Date to be announced{% else %}{{ ev.start | dateLong }}, {{ ev.start | timeOnly }}{% endif %}{% if ev.location %} &middot; {{ ev.location }}{% endif %}</p>
+          <p>{{ ev.summary }}</p>
+        </li>
+        {%- endfor %}
+        {%- for r in events.recurring %}
+        <li class="news-item">
+          <h3><a href="{{ r.url }}">{{ r.title }}</a></h3>
+          <p class="muted">{{ r.when }} &middot; {{ r.where }}</p>
+          <p>{{ r.summary }}</p>
+        </li>
+        {%- endfor %}
+      </ul>
+    </div>
+    <aside class="callout">
+      <h3>Tuesday is always on</h3>
+      <p>Every Tuesday at 7pm, Headquarters is open to visitors. <a href="/join/">What to expect</a>.</p>
+    </aside>
+  </div>
+</section>
+{%- if events.calendarEmbedUrl %}
+<section class="section section--deep">
+  <div class="container">
+    <h2>Full calendar</h2>
+    <div class="map"><iframe title="Bethany Fire calendar" loading="lazy" src="{{ events.calendarEmbedUrl }}"></iframe></div>
+  </div>
+</section>
+{%- endif %}

@@ -1,0 +1,59 @@
+{
+  "name": "Bethany Volunteer Fire Department",
+  "shortName": "Bethany Fire",
+  "operator": "Bethany Volunteer Fireman's Association",
+  "tagline": "Neighbors protecting neighbors since 1934.",
+  "founded": { "year": 1934, "month": 9, "day": 24 },
+  "meeting": { "day": "Tuesday", "time": "7pm", "label": "Tuesdays at 7pm", "place": "Headquarters" },
+  "phone": "(203) 393-2799",
+  "address": {
+    "street": "765 Amity Rd",
+    "city": "Bethany",
+    "state": "CT",
+    "zip": "06524",
+    "note": "Headquarters"
+  },
+  "geo": { "lat": 41.4415, "lon": -72.9916 },
+
+  "_urlNote": "Canonical domain is undecided (bethanyfirect.org or bethanyctfire.org). Override at build time with SITE_URL; see docs/LAUNCH-CHECKLIST.md.",
+  "url": "https://bethanyfirect.org",
+
+  "social": {
+    "facebook": null,
+    "instagram": null
+  },
+
+  "townLinks": {
+    "town": "https://bethanyct.gov/",
+    "fireMarshal": "https://bethanyct.gov/fire-marshal",
+    "burnPermitForm": null,
+    "fireDanger": null,
+    "airQuality": "https://www.airnow.gov/",
+    "centerStationRental": null
+  },
+
+  "donate": {
+    "_note": "Paste the hosted_button_id from the existing PayPal Donate button here. Until then the page shows a mail-in fallback.",
+    "paypalHostedButtonId": null,
+    "mailingAddress": null
+  },
+
+  "legal": {
+    "_note": "EIN is NOT shown on the site until einVerified is true. Treasurer to confirm the exact legal name and EIN.",
+    "name": "Bethany Volunteer Fireman's Association",
+    "ein": "22-2816991",
+    "einVerified": false
+  },
+
+  "analytics": {
+    "_note": "Optional privacy-friendly analytics (Plausible). Set a domain to enable; also allow plausible.io in src/_headers.",
+    "plausibleDomain": null
+  },
+
+  "flags": {
+    "_note": "Launch gates. Each is false until the named person has signed off. scripts/check.mjs lists any that are still false.",
+    "burnPermitsPublished": false,
+    "safetyContentReviewed": false,
+    "privacyPolicyReviewed": false
+  }
+}

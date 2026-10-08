@@ -1,0 +1,7 @@
+{
+  "_note": "HELD until the Town Fire Marshal confirms the three null items below. Fill them in, set lastVerified (YYYY-MM-DD), then set flags.burnPermitsPublished to true in site.json. The rules text on the page comes from the Town's official permit form.",
+  "lastVerified": null,
+  "fee": null,
+  "howToApply": null,
+  "dayOfPhone": null
+}

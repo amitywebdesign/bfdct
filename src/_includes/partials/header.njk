@@ -1,0 +1,35 @@
+{% from "partials/seal.njk" import seal %}
+<header class="site-header">
+  <div class="topbar">
+    <div class="container topbar__inner">
+      <span class="topbar__911">Emergency? Call <a href="tel:911">911</a></span>
+      <ul class="topbar__links">
+        {%- for item in nav.utility %}
+        <li><a href="{{ item.url }}">{{ item.label }}</a></li>
+        {%- endfor %}
+        {%- if site.social.facebook %}<li><a href="{{ site.social.facebook }}" rel="noopener">Facebook</a></li>{% endif %}
+        {%- if site.social.instagram %}<li><a href="{{ site.social.instagram }}" rel="noopener">Instagram</a></li>{% endif %}
+      </ul>
+    </div>
+  </div>
+  {% include "partials/alert.njk" %}
+  <div class="container header-main">
+    <a class="brand" href="/" aria-label="{{ site.name }}, home">
+      <span class="brand__seal">{{ seal("hdr", true) }}</span>
+      <span>
+        <span class="brand__name">Bethany Fire</span>
+        <span class="brand__sub">Volunteers since 1934</span>
+      </span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <nav class="main-nav" id="main-nav" aria-label="Main">
+      <ul>
+        {%- for item in nav.main %}
+        {%- set here = (page.url | inSection(item.url)) %}
+        {%- if item.also %}{% for extra in item.also %}{% if page.url | inSection(extra) %}{% set here = true %}{% endif %}{% endfor %}{% endif %}
+        <li><a href="{{ item.url }}"{% if item.style %} class="nav--{{ item.style }}"{% endif %}{% if here %} aria-current="page"{% endif %}>{{ item.label }}</a></li>
+        {%- endfor %}
+      </ul>
+    </nav>
+  </div>
+</header>

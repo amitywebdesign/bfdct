@@ -1,0 +1,60 @@
+---
+layout: layouts/page.njk
+title: Support Bethany Fire
+section: support
+eyebrow: Support
+heading: Support Bethany Fire
+lead: We are volunteers. Your gift helps keep us ready.
+description: "Donate to the Bethany Volunteer Fireman's Association, which operates the Bethany Volunteer Fire Department and Ambulance Corps."
+---
+<section class="section">
+  <div class="container split split--wide-left">
+    <div class="prose">
+      <p class="lead">Gifts go to the {{ site.legal.name }}, which operates the Bethany Volunteer Fire Department and the Ambulance Corps.
+        {%- if site.legal.einVerified %} Our EIN is {{ site.legal.ein }}.{% endif %}</p>
+      <h2>What your gift helps with</h2>
+      {%- if impact.items.length %}
+      <ul class="news-list">
+        {%- for item in impact.items %}
+        <li class="news-item"><h3>{{ item.title }}{% if item.amount %} <span class="badge">{{ item.amount }}</span>{% endif %}</h3><p>{{ item.text }}</p></li>
+        {%- endfor %}
+      </ul>
+      {%- else %}
+      <p>Your gift helps a volunteer department stay ready: equipment, training, and the apparatus we answer calls in.</p>
+      {%- endif %}
+
+      <h2>Other ways to give</h2>
+      <ul>
+        <li><strong>Monthly giving.</strong> Want to give a little every month? <a href="/contact/?topic=donations">Ask us how</a>.</li>
+        <li><strong>Gifts in honor or memory.</strong> <a href="/contact/?topic=donations">Contact us</a> to make a tribute gift.</li>
+        <li><strong>By check.</strong> {% if site.donate.mailingAddress %}Make it out to the {{ site.legal.name }} and mail it to {{ site.donate.mailingAddress }}.{% else %}<a href="/contact/?topic=donations">Contact us</a> for our mailing address.{% endif %}</li>
+        <li><strong>Local businesses.</strong> <a href="/sponsors/#become-a-sponsor">Become a sponsor</a>.</li>
+      </ul>
+    </div>
+    <aside class="callout callout--red">
+      <h3>Donate online</h3>
+      {%- if site.donate.paypalHostedButtonId %}
+      <form action="https://www.paypal.com/donate" method="post" target="_top">
+        <input type="hidden" name="hosted_button_id" value="{{ site.donate.paypalHostedButtonId }}">
+        <button class="btn btn--brass" type="submit">Donate with PayPal</button>
+      </form>
+      <p class="small muted">You will go to PayPal to finish your gift.</p>
+      {%- else %}
+      <p>Online giving is being reconnected. In the meantime, <a href="/contact/?topic=donations">contact us</a> to give.</p>
+      {%- endif %}
+    </aside>
+  </div>
+</section>
+
+<section class="section section--deep">
+  <div class="container narrow">
+    <div class="section__head"><p class="eyebrow">Transparency</p><h2>Where the money goes</h2></div>
+    {%- if transparency.documents.length %}
+    <ul>
+      {%- for d in transparency.documents %}<li><a href="{{ d.file }}">{{ d.title }}</a>{% if d.year %} ({{ d.year }}){% endif %}</li>{% endfor %}
+    </ul>
+    {%- else %}
+    <p>We will post our Form 990 and a short annual financial summary here.</p>
+    {%- endif %}
+  </div>
+</section>

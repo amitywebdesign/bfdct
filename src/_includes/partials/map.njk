@@ -1,0 +1,7 @@
+{# OpenStreetMap embed centered on Headquarters. Coordinates are in site.json. #}
+{% set lat = site.geo.lat %}{% set lon = site.geo.lon %}
+<div class="map">
+  <iframe title="Map showing Bethany Fire Headquarters at {{ site.address.street }}, {{ site.address.city }}" loading="lazy"
+    src="https://www.openstreetmap.org/export/embed.html?bbox={{ (lon - 0.012) | round(4) }}%2C{{ (lat - 0.007) | round(4) }}%2C{{ (lon + 0.012) | round(4) }}%2C{{ (lat + 0.007) | round(4) }}&amp;layer=mapnik&amp;marker={{ lat }}%2C{{ lon }}"></iframe>
+</div>
+<p class="small"><a href="https://www.google.com/maps/dir/?api=1&destination={{ (site.address.street + ', ' + site.address.city + ', ' + site.address.state + ' ' + site.address.zip) | urlencode }}" rel="noopener">Get directions to Headquarters</a></p>

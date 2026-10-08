@@ -1,0 +1,23 @@
+{# Est. 1934 seal. Inline SVG so the site fonts apply. uid keeps text-path ids unique per page. #}
+{% macro seal(uid, mini=false) %}
+<svg viewBox="0 0 120 120" role="img" aria-label="Bethany Fire, established 1934" focusable="false">
+  <circle cx="60" cy="60" r="58" fill="#23262b"/>
+  <circle cx="60" cy="60" r="55" fill="none" stroke="#b8893b" stroke-width="1.6"/>
+  {% if mini %}
+  <circle cx="60" cy="60" r="46" fill="none" stroke="#b8893b" stroke-width="1"/>
+  <text x="60" y="52" text-anchor="middle" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-weight="700" font-size="17" letter-spacing="2" fill="#b8893b">EST.</text>
+  <text x="60" y="84" text-anchor="middle" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-weight="700" font-size="40" fill="#f6f1e7">1934</text>
+  {% else %}
+  <circle cx="60" cy="60" r="31" fill="none" stroke="#b8893b" stroke-width="1"/>
+  <defs>
+    <path id="{{ uid }}-top" d="M 22,60 A 38,38 0 0 1 98,60"/>
+    <path id="{{ uid }}-bot" d="M 12,60 A 48,48 0 0 0 108,60"/>
+  </defs>
+  <text font-family="Barlow Condensed, Arial Narrow, sans-serif" font-weight="700" font-size="10" letter-spacing="2" fill="#f6f1e7"><textPath href="#{{ uid }}-top" startOffset="50%" text-anchor="middle">BETHANY FIRE</textPath></text>
+  <text font-family="Barlow Condensed, Arial Narrow, sans-serif" font-weight="700" font-size="10" letter-spacing="2" fill="#f6f1e7"><textPath href="#{{ uid }}-bot" startOffset="50%" text-anchor="middle">CONNECTICUT</textPath></text>
+  <text x="60" y="52" text-anchor="middle" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-weight="700" font-size="10" letter-spacing="2" fill="#b8893b">EST.</text>
+  <text x="60" y="73" text-anchor="middle" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-weight="700" font-size="25" fill="#f6f1e7">1934</text>
+  <circle cx="14" cy="60" r="2" fill="#b8893b"/><circle cx="106" cy="60" r="2" fill="#b8893b"/>
+  {% endif %}
+</svg>
+{% endmacro %}

@@ -1,0 +1,9 @@
+{
+  "_note": "Ambulance billing FAQ. An entry with an empty answer is hidden. Fill in answers with the Ambulance Corps lead and the billing contact before launch.",
+  "items": [
+    { "q": "I have a question about a bill. Who do I contact?", "a": "Use the contact form and choose \"Ambulance billing\" as the topic. Please do not put medical details in the form. We will contact you to talk it through." },
+    { "q": "Why did I receive a bill?", "a": "" },
+    { "q": "Is my insurance billed?", "a": "" },
+    { "q": "What if I need help paying?", "a": "" }
+  ]
+}

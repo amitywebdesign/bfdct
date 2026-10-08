@@ -1,0 +1,64 @@
+---
+layout: layouts/page.njk
+title: Safety
+section: safety
+eyebrow: Safety
+heading: Safety for Bethany homes
+lead: Practical help from your neighbors in the fire department.
+description: "Fire and home safety for Bethany residents: burn permit information, Fire Marshal services, seasonal safety tips, and when to call 911."
+---
+<section class="section--tight">
+  <div class="container">
+    <div class="callout callout--yellow">
+      <h2 class="callout__h">In an emergency, call 911.</h2>
+      <p>Call 911 for a fire, a medical emergency, or any time someone is in danger. For non-emergency questions, call <a href="tel:{{ site.phone | tel }}">{{ site.phone }}</a> or use our <a href="/contact/">contact page</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="grid grid--3">
+      <article class="card"><div class="card__body">
+        <h3>Burn permits</h3>
+        <p>Burn permits are issued by the Town Fire Marshal, not by the fire department. Check with the Fire Marshal before you burn anything.</p>
+        {%- if site.flags.burnPermitsPublished %}
+        <a class="card__link" href="/safety/burn-permits/">Read the burn permit rules</a>
+        {%- elif site.townLinks.fireMarshal %}
+        <a class="card__link" href="{{ site.townLinks.fireMarshal }}" rel="noopener">Town Fire Marshal</a>
+        {%- endif %}
+      </div></article>
+      <article class="card"><div class="card__body">
+        <h3>Fire Marshal services</h3>
+        <p>The Town Fire Marshal handles inspections for food trucks, tents, and trailers, blasting and fireworks permits, and requests for safety presentations.</p>
+        {%- if site.townLinks.fireMarshal %}<a class="card__link" href="{{ site.townLinks.fireMarshal }}" rel="noopener">Contact the Fire Marshal</a>{% endif %}
+      </div></article>
+      <article class="card"><div class="card__body">
+        <h3>Home safety tips</h3>
+        <p>Smoke and CO alarms, wood stoves, generators, grilling, lithium-ion batteries, and more.</p>
+        <a class="card__link" href="/safety/home-safety/">Home safety tips</a>
+      </div></article>
+    </div>
+  </div>
+</section>
+
+{%- if safetyVideo.youtubeId %}
+<section class="section section--deep">
+  <div class="container narrow">
+    <h2>Watch</h2>
+    <div class="video"><button type="button" data-youtube-id="{{ safetyVideo.youtubeId }}" data-title="{{ safetyVideo.title }}">Play {{ safetyVideo.title }}</button></div>
+    <p class="small muted">The video loads from YouTube only when you press play.</p>
+  </div>
+</section>
+{%- endif %}
+
+<section class="section {% if not safetyVideo.youtubeId %}section--deep{% endif %}">
+  <div class="container">
+    <div class="section__head"><p class="eyebrow">Resident basics</p><h2>Good to know</h2></div>
+    <div class="grid grid--3">
+      {%- for b in safetyTips.basics %}
+      <div class="card card--flat"><div class="card__body"><h3>{{ b.title }}</h3><p>{{ b.text }}</p></div></div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>

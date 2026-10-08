@@ -1,0 +1,53 @@
+{
+  "main": [
+    { "label": "About", "url": "/about/" },
+    { "label": "Join", "url": "/join/", "style": "join" },
+    { "label": "Safety", "url": "/safety/" },
+    { "label": "Events", "url": "/events/" },
+    { "label": "Support", "url": "/donate/", "style": "support", "also": ["/sponsors/"] },
+    { "label": "Contact", "url": "/contact/" }
+  ],
+  "utility": [
+    { "label": "Ambulance Corps", "url": "/ambulance-corps/" },
+    { "label": "Apparatus", "url": "/about/apparatus/" }
+  ],
+  "sections": {
+    "about": [
+      { "label": "Our story", "url": "/about/" },
+      { "label": "Stations", "url": "/about/stations/" },
+      { "label": "Apparatus", "url": "/about/apparatus/" },
+      { "label": "Ambulance Corps", "url": "/ambulance-corps/" }
+    ],
+    "join": [
+      { "label": "Join us Tuesday", "url": "/join/" },
+      { "label": "Juniors (14–17)", "url": "/join/juniors/" }
+    ],
+    "safety": [
+      { "label": "Safety hub", "url": "/safety/" },
+      { "label": "Home safety", "url": "/safety/home-safety/" }
+    ],
+    "events": [
+      { "label": "All events", "url": "/events/" },
+      { "label": "Trunk or Treat", "url": "/events/trunk-or-treat/" },
+      { "label": "Chicken BBQ & Concert", "url": "/events/chicken-bbq-concert/" }
+    ],
+    "support": [
+      { "label": "Donate", "url": "/donate/" },
+      { "label": "Sponsors", "url": "/sponsors/" }
+    ]
+  },
+  "footer": [
+    { "label": "About", "url": "/about/" },
+    { "label": "Stations", "url": "/about/stations/" },
+    { "label": "Apparatus", "url": "/about/apparatus/" },
+    { "label": "Ambulance Corps", "url": "/ambulance-corps/" },
+    { "label": "Join", "url": "/join/" },
+    { "label": "Juniors", "url": "/join/juniors/" },
+    { "label": "Safety", "url": "/safety/" },
+    { "label": "Events", "url": "/events/" },
+    { "label": "Sponsors", "url": "/sponsors/" },
+    { "label": "Donate", "url": "/donate/" },
+    { "label": "News", "url": "/news/" },
+    { "label": "Contact", "url": "/contact/" }
+  ]
+}

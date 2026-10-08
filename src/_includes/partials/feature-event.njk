@@ -1,0 +1,14 @@
+{# Expects `ev` and `hidden`. Date tile shows month/day, or "TBA" when the date is not known. #}
+<article class="feature-event"{% if hidden %} hidden{% endif %} data-featured-event{% if ev.end %} data-expires="{{ ev.end }}"{% endif %}>
+  {%- if ev.dateTBD %}
+  <div class="date-tile date-tile--tbd" aria-hidden="true"><span class="date-tile__m">Soon</span><span class="date-tile__d">TBA</span></div>
+  {%- else %}
+  <div class="date-tile" aria-hidden="true"><span class="date-tile__m">{{ ev.start | dateMonth }}</span><span class="date-tile__d">{{ ev.start | dateDay }}</span></div>
+  {%- endif %}
+  <div>
+    <p class="eyebrow">Next up</p>
+    <h2 class="feature-event__title">{{ ev.title }}</h2>
+    <p>{{ ev.summary }}</p>
+  </div>
+  <div><a class="btn" href="{{ ev.url }}">Details<span class="sr-only"> about {{ ev.title }}</span></a></div>
+</article>

@@ -1,0 +1,43 @@
+---
+layout: layouts/page.njk
+title: Contact
+heading: Contact us
+lead: The fastest way to meet us is to come on a Tuesday at 7pm.
+description: "Contact the Bethany Volunteer Fire Department: 765 Amity Rd, Bethany, CT, (203) 393-2799. Membership, events, ambulance billing, and general questions."
+---
+{% from "partials/forms.njk" import form, field, select, textarea %}
+<section class="section">
+  <div class="container">
+    <div class="callout callout--yellow"><h2 class="callout__h">Emergency? Call 911.</h2><p>Do not use this page for emergencies.</p></div>
+  </div>
+</section>
+<section class="section--tight">
+  <div class="container split">
+    <div>
+      <ul class="contact-list">
+        <li><strong>Headquarters</strong>{{ site.address.street }}<br>{{ site.address.city }}, {{ site.address.state }} {{ site.address.zip }}</li>
+        <li><strong>Phone</strong><a href="tel:{{ site.phone | tel }}">{{ site.phone }}</a></li>
+        <li><strong>Meetings</strong>{{ site.meeting.label }} at {{ site.meeting.place }}. Visitors welcome.</li>
+        {%- if site.social.facebook or site.social.instagram %}
+        <li><strong>Follow us</strong>{% if site.social.facebook %}<a href="{{ site.social.facebook }}" rel="noopener">Facebook</a>{% endif %}{% if site.social.facebook and site.social.instagram %} &middot; {% endif %}{% if site.social.instagram %}<a href="{{ site.social.instagram }}" rel="noopener">Instagram</a>{% endif %}</li>
+        {%- endif %}
+      </ul>
+      {% include "partials/map.njk" %}
+    </div>
+    <div id="message">
+      {% call form("contact", forms, site.phone, "Send message", "Send us a message") %}
+        <div class="field-row">{{ field("name", "Your name", "text", true, "", "name") }}{{ field("email", "Email", "email", true, "", "email") }}</div>
+        {{ select("topic", "What is this about?", [
+          {value: "general", label: "General question"},
+          {value: "join", label: "Joining the department"},
+          {value: "billing", label: "Ambulance billing"},
+          {value: "events", label: "Events and sponsors"},
+          {value: "donations", label: "Donations"},
+          {value: "safety", label: "Fire safety"},
+          {value: "website", label: "This website"}
+        ]) }}
+        {{ textarea("message", "Message", true, "Please do not include medical details.") }}
+      {% endcall %}
+    </div>
+  </div>
+</section>

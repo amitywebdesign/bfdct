@@ -1,0 +1,5 @@
+{
+  "_note": "The existing safety video. Paste its YouTube video id (the part after v=) to show it on the Safety page. Leave null to hide.",
+  "youtubeId": null,
+  "title": "Fire safety video"
+}

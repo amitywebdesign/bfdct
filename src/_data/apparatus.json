@@ -1,0 +1,37 @@
+{
+  "_note": "Only Engine 83 has confirmed specs. Fill in the others as the chief confirms them; blank fields are simply not shown. category: engine | tanker | brush | lima | utility | trailer | utv | retired. photo is a file in src/assets/img/photos/ (optional). Specs shown only when present.",
+  "groups": [
+    { "id": "engine", "name": "Engines" },
+    { "id": "tanker", "name": "Tankers" },
+    { "id": "brush", "name": "Brush" },
+    { "id": "lima", "name": "Lima units" },
+    { "id": "utility", "name": "Utility" },
+    { "id": "trailer", "name": "Trailer and UTV" },
+    { "id": "retired", "name": "Retired" }
+  ],
+  "units": [
+    { "id": "engine-81", "unit": "Engine 81", "category": "engine" },
+    { "id": "engine-82", "unit": "Engine 82", "category": "engine" },
+    {
+      "id": "engine-83", "unit": "Engine 83", "category": "engine",
+      "year": 2017, "make": "Rosenbauer Commander",
+      "pump": "1,500 GPM Hale pump", "tank": "2,000-gallon tank", "foam": "30 gallons of foam",
+      "photo": null
+    },
+    { "id": "tanker-82", "unit": "Tanker 82", "category": "tanker" },
+    { "id": "tanker-87", "unit": "Tanker 87", "category": "tanker" },
+    { "id": "brush-89", "unit": "Brush 89", "category": "brush" },
+    { "id": "lima-1", "unit": "Lima 1", "category": "lima" },
+    { "id": "lima-7", "unit": "Lima 7", "category": "lima" },
+    { "id": "lima-8", "unit": "Lima 8", "category": "lima" },
+    { "id": "utility-1", "unit": "Utility 1", "category": "utility" },
+    { "id": "utility-86", "unit": "Utility 86", "category": "utility", "_note": "Has a photo on the old site but no specs. Confirm before adding any." },
+    { "id": "special-ops", "unit": "Special Ops trailer", "category": "trailer" },
+    { "id": "utv", "unit": "UTV", "category": "utv" },
+    {
+      "id": "muster-truck", "unit": "Muster Truck", "category": "retired", "retired": true,
+      "year": 1950, "make": "Ford",
+      "role": "Retired from service. The Association still owns it."
+    }
+  ]
+}

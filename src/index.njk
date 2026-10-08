@@ -1,0 +1,159 @@
+---
+layout: layouts/base.njk
+title: Home
+description: "Neighbors protecting neighbors since 1934. Bethany's volunteer fire department and ambulance corps. Come to Headquarters any Tuesday at 7pm. No experience needed."
+---
+{% from "partials/icons.njk" import icon %}
+{% set featuredEvents = events.events | featured %}
+
+<section class="hero on-dark">
+  <div class="hero__media">{% image "photos/hero.jpg", "", "100vw", true %}</div>
+  <div class="container hero__inner">
+    <p class="eyebrow">Est. 1934 &middot; Bethany, Connecticut</p>
+    <h1>Neighbors protecting neighbors since&nbsp;1934.</h1>
+    <p class="lead">We are volunteers. We run the fire department and the ambulance corps for our town, and we would like to meet you. Come see us any Tuesday at 7pm.</p>
+    <div class="btn-row">
+      <a class="btn" href="/join/">Join us Tuesday at 7</a>
+      <a class="btn btn--brass" href="/donate/">Support Bethany Fire</a>
+    </div>
+  </div>
+</section>
+
+{% if featuredEvents.length %}
+<section class="section--tight" aria-label="Featured event">
+  <div class="container">
+    {% for ev in featuredEvents %}{% set hidden = not loop.first %}{% include "partials/feature-event.njk" %}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="section">
+  <div class="container">
+    <div class="section__head">
+      <p class="eyebrow">What we do</p>
+      <h2>Your neighbors. Your fire department.</h2>
+    </div>
+    <div class="grid grid--3">
+      <article class="card"><div class="card__body">
+        <div class="icon-bubble">{{ icon("fire") }}</div>
+        <h3>Fire</h3>
+        <p>Volunteers who answer when Bethany calls, with three stations and a fleet of engines, tankers, and utility vehicles.</p>
+        <a class="card__link" href="/about/apparatus/">See the apparatus</a>
+      </div></article>
+      <article class="card"><div class="card__body">
+        <div class="icon-bubble">{{ icon("ambulance") }}</div>
+        <h3>Ambulance Corps</h3>
+        <p>A division of the Association, with EMR and EMT members, two BLS ambulances, and a first-responder vehicle.</p>
+        <a class="card__link" href="/ambulance-corps/">Meet the Ambulance Corps</a>
+      </div></article>
+      <article class="card"><div class="card__body">
+        <div class="icon-bubble">{{ icon("community") }}</div>
+        <h3>Community</h3>
+        <p>Fire safety tips, Trunk or Treat, the Chicken Bar-B-Que &amp; Tailgate Concert, and a Juniors program for ages 14 to 17.</p>
+        <a class="card__link" href="/events/">See what's coming up</a>
+      </div></article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--dark on-dark" id="tuesday">
+  <div class="container tuesday">
+    <div>
+      <p class="eyebrow">Tuesday Night</p>
+      <p class="tuesday__big">Any Tuesday.<br><span>7pm.</span></p>
+      <p class="lead">Come to Headquarters, {{ site.address.street }}. No appointment. No experience. We'll train you.</p>
+      <div class="btn-row">
+        <a class="btn" href="/join/">What to expect</a>
+        <a class="btn btn--ghost" href="https://www.google.com/maps/dir/?api=1&destination={{ (site.address.street + ', ' + site.address.city + ', ' + site.address.state + ' ' + site.address.zip) | urlencode }}" rel="noopener">Get directions</a>
+      </div>
+    </div>
+    <div>
+      <div class="who">
+        <div><h3>Members</h3><p>Our volunteers gather at Headquarters every Tuesday night.</p></div>
+        <div><h3>Juniors</h3><p>Ages 14 to 17 train alongside members.</p></div>
+        <div><h3>Ambulance Corps</h3><p>The Corps meets on Tuesday too.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--red on-dark" aria-labelledby="numbers-h">
+  <div class="container">
+    <div class="section__head"><p class="eyebrow">By the numbers</p><h2 id="numbers-h">Volunteers, stations, and trucks</h2></div>
+    <div class="stats">
+      <div><span class="stat__n">{{ stats.years }}</span><span class="stat__l">years of service</span></div>
+      <div><span class="stat__n">{{ stats.stations }}</span><span class="stat__l">stations</span></div>
+      <div><span class="stat__n">{{ stats.vehicles }}</span><span class="stat__l">vehicles</span><span class="stat__x">{{ stats.extras }}</span></div>
+      <div><span class="stat__n">{{ stats.sponsors }}</span><span class="stat__l">local sponsors</span></div>
+      {%- if stats.callVolume %}<div><span class="stat__n">{{ stats.callVolume }}</span><span class="stat__l">calls last year</span></div>{% endif %}
+      {%- if stats.members %}<div><span class="stat__n">{{ stats.members }}</span><span class="stat__l">members</span></div>{% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--deep">
+  <div class="container split split--wide-left">
+    <div>
+      <p class="eyebrow">Where your support goes</p>
+      <h2>A volunteer department runs on neighbors.</h2>
+      <p class="lead">Your gift helps us stay ready: equipment, training, and the apparatus we answer calls in.</p>
+      <div class="btn-row"><a class="btn btn--brass" href="/donate/">Donate</a><a class="btn btn--ghost" href="/sponsors/">Become a sponsor</a></div>
+    </div>
+    {%- if impact.items.length %}
+    <ul class="news-list">
+      {%- for item in impact.items %}
+      <li class="news-item"><h3>{{ item.title }}{% if item.amount %} <span class="badge">{{ item.amount }}</span>{% endif %}</h3><p>{{ item.text }}</p></li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div>
+      <div class="section__head"><p class="eyebrow">Coming up</p><h2>Events</h2></div>
+      <ul class="news-list">
+        {%- for ev in featuredEvents %}
+        <li class="news-item"><h3><a href="{{ ev.url }}">{{ ev.title }}</a></h3><p class="muted">{% if ev.dateTBD %}Date to be announced{% else %}{{ ev.start | dateLong }}, {{ ev.start | timeOnly }}{% endif %}</p></li>
+        {%- endfor %}
+        {%- for r in events.recurring %}
+        <li class="news-item"><h3><a href="{{ r.url }}">{{ r.title }}</a></h3><p class="muted">{{ r.when }} &middot; {{ r.where }}</p></li>
+        {%- endfor %}
+      </ul>
+      <p><a href="/events/">All events</a></p>
+    </div>
+    <div>
+      <div class="section__head"><p class="eyebrow">Latest</p><h2>News</h2></div>
+      {%- if collections.news.length %}
+      <ul class="news-list">
+        {%- for post in collections.news | head(3) %}
+        <li class="news-item"><h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3><time datetime="{{ post.date | isoDate }}">{{ post.date | dateLong }}</time><p>{{ post.data.summary }}</p></li>
+        {%- endfor %}
+      </ul>
+      <p><a href="/news/">All news</a></p>
+      {%- else %}
+      <p class="muted">News and thank-you notes from the department will appear here.</p>
+      {%- endif %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight section--deep" aria-labelledby="sponsor-strip-h">
+  <div class="container">
+    <h2 id="sponsor-strip-h">Our sponsors</h2>
+    {%- if sponsors.sponsors.length %}
+    <ul class="sponsor-grid">
+      {%- for s in sponsors.sponsors | head(8) %}
+      <li>{% if s.url %}<a class="sponsor" href="{{ s.url }}" rel="noopener">{% else %}<span class="sponsor">{% endif %}
+        {%- if s.logo %}<img src="/assets/img/sponsors/{{ s.logo }}" alt="{{ s.name }}" loading="lazy">{% else %}{{ s.name }}{% endif -%}
+      {% if s.url %}</a>{% else %}</span>{% endif %}</li>
+      {%- endfor %}
+    </ul>
+    <p><a href="/sponsors/">See all of our sponsors</a></p>
+    {%- else %}
+    <p class="lead">Local businesses help keep us ready. Thank you.</p>
+    <p><a class="btn btn--ghost" href="/sponsors/">Become a sponsor</a></p>
+    {%- endif %}
+  </div>
+</section>

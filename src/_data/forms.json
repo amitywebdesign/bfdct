@@ -1,0 +1,9 @@
+{
+  "_note": "Form endpoints. Create one form per entry at your form service (e.g. Formspree) and paste the URL. Route each form to the right role inbox in the form service, not here. A form with no endpoint shows a friendly 'not connected' message instead of silently failing.",
+  "contact":  { "endpoint": "", "routeTo": "Chief / webmaster (by topic)" },
+  "join":     { "endpoint": "", "routeTo": "Recruitment and training" },
+  "juniors":  { "endpoint": "", "routeTo": "Juniors / recruitment (parent-submitted)" },
+  "tour":     { "endpoint": "", "routeTo": "Chief" },
+  "trunk":    { "endpoint": "", "routeTo": "Events officer" },
+  "sponsor":  { "endpoint": "", "routeTo": "Events officer / treasurer" }
+}

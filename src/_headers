@@ -1,0 +1,11 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://formspree.io; frame-src https://www.openstreetmap.org https://www.youtube-nocookie.com https://calendar.google.com; form-action 'self' https://formspree.io https://www.paypal.com; base-uri 'self'; frame-ancestors 'none'; object-src 'none'
+
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/img/photos/*
+  Cache-Control: public, max-age=31536000, immutable

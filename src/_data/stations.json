@@ -1,0 +1,18 @@
+{
+  "_note": "Role lines are blank until the chief supplies them; blank means not shown. photo is a file in src/assets/img/photos/.",
+  "stations": [
+    {
+      "id": "headquarters", "name": "Headquarters", "address": "765 Amity Rd",
+      "year": 2007, "photo": null,
+      "role": "Our home base. We meet here every Tuesday at 7pm, and visitors are welcome."
+    },
+    {
+      "id": "center", "name": "Center Station", "address": "460 Amity Rd",
+      "year": 1951, "photo": null, "role": null
+    },
+    {
+      "id": "hinman", "name": "Hinman Station", "address": "Bear Hill Rd",
+      "year": 1972, "photo": null, "role": null
+    }
+  ]
+}

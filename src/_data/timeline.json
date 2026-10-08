@@ -1,0 +1,40 @@
+{
+  "_note": "Our story, in order. Each entry: year, title, text. Add the historian's finds here.",
+  "entries": [
+    {
+      "year": "Before 1934",
+      "title": "Bucket brigades",
+      "text": "Before there was a department, neighbors fought fires the only way they could: a line of people passing buckets."
+    },
+    {
+      "year": "1934",
+      "title": "September 24: neighbors organize",
+      "text": "On September 24, 1934, Bethany residents held the organizational meeting that created the department. They met in a donated schoolhouse, the Center School."
+    },
+    {
+      "year": "1935",
+      "title": "The first truck",
+      "text": "A 1935 Ford became the department's first fire truck."
+    },
+    {
+      "year": "1942",
+      "title": "A Seagrave pumper",
+      "text": "The department added a 1942 Seagrave pumper."
+    },
+    {
+      "year": "1951",
+      "title": "Center Station",
+      "text": "Center Station, on Amity Road, opened."
+    },
+    {
+      "year": "1972",
+      "title": "Hinman Station",
+      "text": "Hinman Station opened on Bear Hill Road."
+    },
+    {
+      "year": "2007",
+      "title": "Headquarters",
+      "text": "Headquarters at 765 Amity Road opened. It is where we meet every Tuesday night."
+    }
+  ]
+}

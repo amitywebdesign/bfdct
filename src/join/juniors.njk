@@ -1,0 +1,51 @@
+---
+layout: layouts/page.njk
+title: Juniors
+section: join
+eyebrow: Juniors / Explorer Post
+heading: Juniors, ages 14 to 17
+lead: Real training, with real members, starting in high school.
+description: "The Bethany Fire Juniors program (Explorer Post) for ages 14 to 17: train alongside members on Tuesdays and build a path to EMR or EMT certification."
+---
+{% from "partials/forms.njk" import form, field, select, textarea, check %}
+<section class="section">
+  <div class="container split split--wide-left">
+    <div class="prose">
+      <p class="lead">The Juniors program is our Explorer Post for ages 14 to 17. Juniors train alongside our members on Tuesdays.</p>
+      <h2>Where it can lead</h2>
+      <ul class="checklist">
+        <li>Juniors can attend the State Fire Academy in Windsor Locks.</li>
+        <li>The path leads to EMR or EMT certification.</li>
+        <li>At 18, Juniors can move to an accelerated application to join as full members.</li>
+      </ul>
+    </div>
+    <aside class="callout callout--red">
+      <h3>Parents: come with them</h3>
+      <p>Come to Headquarters, {{ site.address.street }}, any Tuesday at 7pm and see for yourself.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="section section--deep" id="interest">
+  <div class="container split">
+    <div class="prose">
+      <p class="eyebrow">For parents and guardians</p>
+      <h2>Questions parents ask</h2>
+      <div class="faq">
+        <details><summary>Who is Juniors for?</summary><div class="faq__a"><p>Young people ages 14 to 17.</p></div></details>
+        <details><summary>When does it meet?</summary><div class="faq__a"><p>Juniors train alongside members on Tuesdays at Headquarters.</p></div></details>
+        <details><summary>What does it lead to?</summary><div class="faq__a"><p>It leads to EMR or EMT certification, and to an accelerated application at 18.</p></div></details>
+        <details><summary>I have another question.</summary><div class="faq__a"><p>Use the form and we'll get back to you, or call <a href="tel:{{ site.phone | tel }}">{{ site.phone }}</a>.</p></div></details>
+      </div>
+    </div>
+    <div>
+      {% call form("juniors", forms, site.phone, "Send", "Parent or guardian interest form") %}
+        <p class="small muted">Parents and guardians send this form, not minors. We only ask for the age of your child.</p>
+        <div class="field-row">{{ field("parent_name", "Parent or guardian name", "text", true, "", "name") }}{{ field("email", "Email", "email", true, "", "email") }}</div>
+        <div class="field-row">{{ field("phone", "Phone (optional)", "tel", false, "", "tel") }}{{ field("child_age", "Your child's age", "number", true, "Between 14 and 17") }}</div>
+        {{ textarea("message", "Anything you'd like us to know? (optional)") }}
+        {{ check("guardian", "I am the parent or legal guardian.", true) }}
+      {% endcall %}
+    </div>
+  </div>
+</section>

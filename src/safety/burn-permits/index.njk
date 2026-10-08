@@ -1,0 +1,50 @@
+---
+layout: layouts/page.njk
+title: Burn permits
+section: safety
+eyebrow: Safety
+heading: Burn permits
+lead: Open burning in Bethany requires a permit from the Town Fire Marshal.
+description: "Bethany burn permit rules: brush only, your own residential property, a permit from the Town Fire Marshal, and when burning is not allowed."
+---
+<section class="section">
+  <div class="container split split--wide-left">
+    <div class="prose">
+      <div class="callout callout--yellow">
+        <h2 class="callout__h">The Town Fire Marshal issues burn permits.</h2>
+        <p>The fire department does not issue them. {% if burnPermits.lastVerified %}Last verified {{ burnPermits.lastVerified | dateLong }}.{% endif %}</p>
+      </div>
+
+      <h2>The rules</h2>
+      <ul class="checklist">
+        <li>Brush only, 3 inches or less across.</li>
+        <li>Burn on your own residential property, and have a certificate of occupancy.</li>
+        <li>Burn between 10 a.m. and 5 p.m., on a sunny or partly sunny day, with wind of 5 to 15 mph.</li>
+        <li>Never leave the fire unattended.</li>
+        <li>The fire must be out and wetted down by 5 p.m.</li>
+        <li>Keep the permit with you at the site.</li>
+      </ul>
+
+      <h2>When a permit is not valid</h2>
+      <ul>
+        <li>When the state forest fire danger is high or above.</li>
+        <li>When the air quality index is predicted to be 75 or higher.</li>
+      </ul>
+      <p>
+        {%- if site.townLinks.fireDanger %}<a href="{{ site.townLinks.fireDanger }}" rel="noopener">Check the forest fire danger</a>. {% endif %}
+        {%- if site.townLinks.airQuality %}<a href="{{ site.townLinks.airQuality }}" rel="noopener">Check the air quality</a>.{% endif %}
+      </p>
+
+      <h2>Fee and how to apply</h2>
+      {%- if burnPermits.fee %}<p><strong>Fee:</strong> {{ burnPermits.fee }}</p>{% endif %}
+      {%- if burnPermits.howToApply %}<p>{{ burnPermits.howToApply }}</p>{% endif %}
+      {%- if burnPermits.dayOfPhone %}<p><strong>Day-of call:</strong> {{ burnPermits.dayOfPhone }}</p>{% endif %}
+    </div>
+    <aside class="callout">
+      <h3>Get your permit</h3>
+      {%- if site.townLinks.burnPermitForm %}<p><a class="btn" href="{{ site.townLinks.burnPermitForm }}" rel="noopener">Town permit form</a></p>{% endif %}
+      {%- if site.townLinks.fireMarshal %}<p><a href="{{ site.townLinks.fireMarshal }}" rel="noopener">Town Fire Marshal page</a></p>{% endif %}
+      <p class="small muted">If a fire gets out of control, call 911.</p>
+    </aside>
+  </div>
+</section>

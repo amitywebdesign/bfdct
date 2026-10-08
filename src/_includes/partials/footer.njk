@@ -1,0 +1,41 @@
+{% from "partials/seal.njk" import seal %}
+<footer class="site-footer">
+  <div class="footer__911">Emergency? Call <a href="tel:911">911</a>. For everything else, call <a href="tel:{{ site.phone | tel }}">{{ site.phone }}</a>.</div>
+  <div class="container footer__top">
+    <div>
+      <div class="footer__seal">{{ seal("ftr") }}</div>
+      <h2>Bethany Volunteer Fire Department</h2>
+      <address>
+        {{ site.address.street }}<br>
+        {{ site.address.city }}, {{ site.address.state }} {{ site.address.zip }}<br>
+        <a href="tel:{{ site.phone | tel }}">{{ site.phone }}</a>
+      </address>
+      <p class="footer__meet"><strong>{{ site.meeting.label }}.</strong> Visitors welcome at {{ site.meeting.place }}.</p>
+      {%- if site.social.facebook or site.social.instagram %}
+      <ul class="social">
+        {%- if site.social.facebook %}<li><a href="{{ site.social.facebook }}" rel="noopener">Facebook</a></li>{% endif %}
+        {%- if site.social.instagram %}<li><a href="{{ site.social.instagram }}" rel="noopener">Instagram</a></li>{% endif %}
+      </ul>
+      {%- endif %}
+    </div>
+    <div>
+      <h2>Explore</h2>
+      <ul class="footer__links">
+        {%- for item in nav.footer %}<li><a href="{{ item.url }}">{{ item.label }}</a></li>{% endfor %}
+      </ul>
+    </div>
+    <div>
+      <h2>Join us Tuesday</h2>
+      <p>Come to Headquarters any Tuesday at 7pm. No appointment. No experience needed. We'll train you.</p>
+      <p><a class="btn" href="/join/">Join us</a></p>
+    </div>
+  </div>
+  <div class="container footer__bottom">
+    <span>&copy; {{ year }} {{ site.name }}. Operated by the {{ site.operator }}.
+      {%- if site.legal.einVerified %} EIN {{ site.legal.ein }}.{% endif %}</span>
+    <ul>
+      <li><a href="/privacy/">Privacy</a></li>
+      <li><a href="/accessibility/">Accessibility</a></li>
+    </ul>
+  </div>
+</footer>

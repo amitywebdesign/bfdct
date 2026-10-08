@@ -1,0 +1,8 @@
+{
+  "_note": "Site-wide banner. Chief approves changes. level: info | warning | urgent. expires is the LAST day it shows (YYYY-MM-DD) and is also enforced in the browser between rebuilds.",
+  "active": false,
+  "level": "info",
+  "message": "",
+  "link": { "text": "", "url": "" },
+  "expires": null
+}

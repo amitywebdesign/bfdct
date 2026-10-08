@@ -1,0 +1,44 @@
+---
+layout: layouts/page.njk
+title: About
+section: about
+eyebrow: About Bethany Fire
+heading: Neighbors formed this department. Neighbors still run it.
+lead: Since 1934, Bethany's fire department has been made of the people who live here.
+description: "The story of the Bethany Volunteer Fire Department, from the 1934 organizational meeting in a donated schoolhouse to today's three stations."
+---
+<section class="section">
+  <div class="container split split--wide-left">
+    <div class="prose">
+      <p class="lead">In 1934, Bethany neighbors came together to organize a fire department. They held the organizational meeting on September 24 in a donated schoolhouse, the Center School.</p>
+      <p>The department is still run by volunteers. The Bethany Volunteer Fireman's Association operates it, and the Ambulance Corps is a division of the Association. Today we have three stations, and we meet at Headquarters every Tuesday at 7pm.</p>
+      <p>Visitors are welcome on Tuesday. <a href="/join/">Come see us.</a></p>
+    </div>
+    <aside class="callout">
+      <h2 class="callout__h">Keeping the past on the road</h2>
+      <p>The Association still owns our Muster Truck, a 1950 Ford. See it on the <a href="/about/apparatus/">apparatus page</a>.</p>
+      <p>There is also a restored schoolhouse on the Community School campus.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="section section--deep">
+  <div class="container narrow">
+    <div class="section__head"><p class="eyebrow">Timeline</p><h2>From bucket brigades to Headquarters</h2></div>
+    <ol class="timeline">
+      {%- for t in timeline.entries %}
+      <li><span class="timeline__year">{{ t.year }}</span><h3>{{ t.title }}</h3><p>{{ t.text }}</p></li>
+      {%- endfor %}
+    </ol>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="grid grid--3">
+      <a class="card" href="/about/stations/"><div class="card__body"><h3>Our stations</h3><p>Center, Hinman, and Headquarters.</p></div></a>
+      <a class="card" href="/about/apparatus/"><div class="card__body"><h3>Our apparatus</h3><p>Engines, tankers, and more.</p></div></a>
+      <a class="card" href="/join/"><div class="card__body"><h3>Join us</h3><p>Any Tuesday at 7pm.</p></div></a>
+    </div>
+  </div>
+</section>

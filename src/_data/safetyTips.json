@@ -1,0 +1,93 @@
+{
+  "_note": "DRAFT, NOT YET REVIEWED. The chief and the Fire Marshal must review every card before launch, then set flags.safetyContentReviewed to true in site.json. Season: all | fall | winter | spring | summer. Each card: id, title, season, summary, tips[].",
+  "tips": [
+    {
+      "id": "smoke-co-alarms", "title": "Smoke and carbon monoxide alarms", "season": "all",
+      "summary": "Working alarms are the cheapest lifesaver in your house.",
+      "tips": [
+        "Put a smoke alarm on every level, inside each bedroom, and outside sleeping areas.",
+        "Put carbon monoxide alarms on every level and near sleeping areas.",
+        "Test alarms monthly. Replace batteries as needed.",
+        "Alarms wear out. Check the date on the back and replace the unit when it is 10 years old, or sooner if the maker says so."
+      ]
+    },
+    {
+      "id": "escape-planning", "title": "Plan your escape", "season": "all",
+      "summary": "A few minutes of planning makes everyone faster when it counts.",
+      "tips": [
+        "Know two ways out of every room.",
+        "Pick a meeting spot outside, like the mailbox or a tree.",
+        "Practice the plan with everyone in the house, twice a year.",
+        "Once you are out, stay out. Call 911 from outside."
+      ]
+    },
+    {
+      "id": "wood-stoves-chimneys", "title": "Wood stoves and chimneys", "season": "fall",
+      "summary": "Before the first fire of the season, check the chimney.",
+      "tips": [
+        "Have chimneys and stovepipes inspected and cleaned before heating season.",
+        "Keep anything that burns at least three feet from the stove.",
+        "Put ashes in a metal container with a lid, and keep it outside and away from the house."
+      ]
+    },
+    {
+      "id": "generators-co", "title": "Generators and carbon monoxide", "season": "winter",
+      "summary": "Outages are when generator accidents happen.",
+      "tips": [
+        "Run a generator outdoors only, well away from doors, windows, and vents. Never in a garage, basement, or porch.",
+        "Make sure your carbon monoxide alarms work before the storm.",
+        "Let the generator cool before refueling."
+      ]
+    },
+    {
+      "id": "holiday-decorations", "title": "Holiday decorations", "season": "winter",
+      "summary": "Keep the festive part festive.",
+      "tips": [
+        "Keep a live tree watered and away from heaters and fireplaces.",
+        "Check light strings for damage, and do not overload outlets.",
+        "Blow out candles when you leave the room."
+      ]
+    },
+    {
+      "id": "kitchen-fires", "title": "Kitchen fires", "season": "all",
+      "summary": "Cooking is a leading cause of home fires.",
+      "tips": [
+        "Stay in the kitchen while you are frying, boiling, or broiling.",
+        "Keep towels, packaging, and pot holders away from the burners.",
+        "If a pan catches fire, slide a lid over it and turn off the heat. Never use water on a grease fire."
+      ]
+    },
+    {
+      "id": "lithium-ion", "title": "Lithium-ion batteries", "season": "all",
+      "summary": "E-bikes, scooters, tools, and phones all run on them.",
+      "tips": [
+        "Use the charger that came with the device, or one approved by its maker.",
+        "Do not charge while you sleep or while no one is home. Do not charge on a bed or couch.",
+        "Stop using a battery that swells, leaks, smells, or gets very hot."
+      ]
+    },
+    {
+      "id": "grilling", "title": "Grilling", "season": "summer",
+      "summary": "Grills belong outside and away from the house.",
+      "tips": [
+        "Use a grill only outdoors, at least ten feet from the house, deck rails, and overhanging branches.",
+        "Never leave a lit grill alone.",
+        "Keep children and pets well back."
+      ]
+    },
+    {
+      "id": "brush-fires", "title": "Dry-season brush fires", "season": "spring",
+      "summary": "Dry grass and leaves burn fast.",
+      "tips": [
+        "Never burn without a permit. Burn permits come from the Town Fire Marshal, not from us.",
+        "Do not throw cigarettes out a car window or leave them in mulch or planters.",
+        "If a brush fire gets away from you, call 911 right away."
+      ]
+    }
+  ],
+  "basics": [
+    { "title": "911 or non-emergency?", "text": "If someone is in danger or there is a fire, call 911. For non-emergency questions, call (203) 393-2799 or use the contact page." },
+    { "title": "Make your house number easy to see", "text": "Large, reflective numbers visible from the road help us find you quickly, day or night." },
+    { "title": "Storm and outage prep", "text": "Charge phones, keep flashlights handy, and know where your generator will run before the storm, not during it." }
+  ]
+}

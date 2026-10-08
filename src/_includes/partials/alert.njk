@@ -1,0 +1,10 @@
+{% set expired = alert.expires and ((alert.expires + "T23:59:59") | isPast) %}
+{% if alert.active and alert.message and not expired %}
+<div class="alert alert--{{ alert.level or 'info' }}" role="region" aria-label="Site alert" data-alert data-expires="{{ alert.expires or '' }}" data-alert-id="{{ alert.message | length }}-{{ alert.expires }}">
+  <div class="container alert__inner">
+    <p class="alert__text">{{ alert.message }}
+      {%- if alert.link and alert.link.url %} <a href="{{ alert.link.url }}">{{ alert.link.text or "Learn more" }}</a>{% endif %}</p>
+    <button class="alert__close" type="button" aria-label="Dismiss alert" data-alert-close>&times;</button>
+  </div>
+</div>
+{% endif %}

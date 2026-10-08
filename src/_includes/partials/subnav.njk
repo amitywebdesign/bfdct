@@ -1,0 +1,12 @@
+{% set items = nav.sections[section] %}
+{% if items %}
+<nav class="subnav" aria-label="{{ section | capitalize }} pages">
+  <div class="container">
+    <ul>
+      {%- for item in items %}
+      <li><a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a></li>
+      {%- endfor %}
+    </ul>
+  </div>
+</nav>
+{% endif %}

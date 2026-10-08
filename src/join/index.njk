@@ -1,0 +1,95 @@
+---
+layout: layouts/page.njk
+title: Join
+section: join
+eyebrow: Tuesday Night
+heading: Come see us any Tuesday at 7pm.
+lead: No appointment. No experience. We'll train you.
+description: "Join the Bethany Volunteer Fire Department or Ambulance Corps. Come to Headquarters, 765 Amity Rd, any Tuesday at 7pm. No appointment and no experience needed."
+---
+{% from "partials/forms.njk" import form, field, select, textarea, check %}
+<section class="section">
+  <div class="container split">
+    <div class="prose">
+      <p class="eyebrow">Where and when</p>
+      <h2>Tuesdays at 7pm</h2>
+      <p class="lead">Headquarters, {{ site.address.street }}, {{ site.address.city }}. Walk in and ask for anyone. We'd like to meet you.</p>
+      <div class="btn-row">
+        <a class="btn" href="#interest">Tell us you're coming</a>
+        <a class="btn btn--ghost" href="https://www.google.com/maps/dir/?api=1&destination={{ (site.address.street + ', ' + site.address.city + ', ' + site.address.state + ' ' + site.address.zip) | urlencode }}" rel="noopener">Get directions</a>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="callout callout--red"><h3>"I need experience."</h3><p>You don't. We'll train you.</p></div>
+      <div class="callout callout--red"><h3>"It's all about running into fires."</h3><p>There are many ways to help. See the roles below.</p></div>
+      <div class="callout callout--red"><h3>"I have to sign up first."</h3><p>No. Come to a Tuesday meeting, no appointment needed, and see what we do.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--deep">
+  <div class="container">
+    <div class="section__head"><p class="eyebrow">The path</p><h2>From your first Tuesday to your first call</h2></div>
+    <ol class="steps">
+      <li><h3>Visit</h3><p>Stop by any Tuesday at 7pm. Meet members and ask anything.</p></li>
+      <li><h3>Apply</h3><p>We'll walk you through the application.</p></li>
+      <li><h3>Train</h3><p>You don't need experience. We teach you.</p></li>
+      <li><h3>Respond</h3><p>Once you're trained, you serve with the crew.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section__head"><p class="eyebrow">Roles</p><h2>There's a place for you</h2></div>
+    <div class="grid grid--3">
+      <div class="card card--flat"><div class="card__body"><h3>Fire</h3><p>Firefighters train to respond to fires and other emergencies.</p></div></div>
+      <div class="card card--flat"><div class="card__body"><h3>EMS</h3><p>Ambulance Corps members respond as EMRs and EMTs.</p></div></div>
+      <div class="card card--flat"><div class="card__body"><h3>Driver</h3><p>Drivers get our apparatus to the scene safely.</p></div></div>
+      <div class="card card--flat"><div class="card__body"><h3>Fire police</h3><p>Fire police direct traffic and help keep scenes safe.</p></div></div>
+      <div class="card card--flat"><div class="card__body"><h3>Support</h3><p>Help with events, fundraising, and keeping the department running.</p></div></div>
+      <div class="card card--flat"><div class="card__body"><h3>Juniors (14–17)</h3><p>Train alongside members on Tuesdays. <a href="/join/juniors/">Learn about Juniors</a>.</p></div></div>
+    </div>
+  </div>
+</section>
+
+{%- if stories.stories.length %}
+<section class="section section--dark on-dark">
+  <div class="container narrow">
+    <p class="eyebrow">A day in the life</p>
+    {%- for s in stories.stories %}
+    <figure><blockquote><p class="lead">&ldquo;{{ s.quote }}&rdquo;</p></blockquote><figcaption>{{ s.name }}, {{ s.role }}{% if s.years %} &middot; {{ s.years }}{% endif %}</figcaption></figure>
+    {%- endfor %}
+  </div>
+</section>
+{%- endif %}
+
+<section class="section section--deep" id="interest">
+  <div class="container split">
+    <div class="prose">
+      <p class="eyebrow">Interested?</p>
+      <h2>Tell us a little about you</h2>
+      <p>Send this and we'll get back to you. You don't have to wait for a reply to come on Tuesday.</p>
+      <div class="faq">
+        <details><summary>Do I need experience?</summary><div class="faq__a"><p>No. We train you.</p></div></details>
+        <details><summary>When and where do you meet?</summary><div class="faq__a"><p>Every Tuesday at 7pm at Headquarters, {{ site.address.street }}.</p></div></details>
+        <details><summary>What about requirements, costs, and background checks?</summary><div class="faq__a"><p>We'll go over everything with you when you visit, or send us a question using the form.</p></div></details>
+      </div>
+    </div>
+    <div>
+      {% call form("join", forms, site.phone, "Send") %}
+        <div class="field-row">{{ field("name", "Your name", "text", true, "", "name") }}{{ field("email", "Email", "email", true, "", "email") }}</div>
+        {{ field("phone", "Phone (optional)", "tel", false, "", "tel") }}
+        {{ select("interest", "What are you interested in?", [
+          {value: "not-sure", label: "Not sure yet"},
+          {value: "fire", label: "Fire"},
+          {value: "ems", label: "Ambulance Corps (EMS)"},
+          {value: "driver", label: "Driver"},
+          {value: "fire-police", label: "Fire police"},
+          {value: "support", label: "Support"}
+        ]) }}
+        {{ textarea("message", "Anything you'd like us to know? (optional)") }}
+      {% endcall %}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,12 @@
+---
+layout: layouts/base.njk
+---
+<section class="page-hero on-dark">
+  <div class="container">
+    {%- if eyebrow %}<p class="eyebrow">{{ eyebrow }}</p>{% endif %}
+    <h1>{{ heading or title }}</h1>
+    {%- if lead %}<p class="lead">{{ lead }}</p>{% endif %}
+  </div>
+</section>
+{% if section %}{% include "partials/subnav.njk" %}{% endif %}
+{{ content | safe }}

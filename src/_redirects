@@ -1,0 +1,15 @@
+# Old bethanyfirect.org URLs -> new pages (Netlify / Cloudflare Pages format).
+# Directory URLs get their trailing slash automatically, so /events and /contact
+# and /ambulance-corps need no rule.
+/home                                       /                       301
+/home/                                      /                       301
+/about-us                                   /about/                 301
+/about-us/                                  /about/                 301
+/apparatus                                  /about/apparatus/       301
+/apparatus/                                 /about/apparatus/       301
+/application-information                    /join/                  301
+/application-information/                   /join/                  301
+/application-information/juniors-program    /join/juniors/          301
+/application-information/juniors-program/   /join/juniors/          301
+/emergency-preparedness-safety              /safety/                301
+/emergency-preparedness-safety/             /safety/                301

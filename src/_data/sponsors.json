@@ -1,0 +1,11 @@
+{
+  "_note": "Add a business under its tier. Fields: name, url (optional), logo (file in src/assets/img/sponsors/, optional). Only list a business once it has given permission to show its logo. Tier order is the display order.",
+  "tiers": [
+    { "id": "medal-of-honor", "name": "Medal of Honor" },
+    { "id": "allegiance", "name": "Allegiance" },
+    { "id": "patriot", "name": "Patriot" },
+    { "id": "liberty", "name": "Liberty" },
+    { "id": "freedom", "name": "Freedom" }
+  ],
+  "sponsors": []
+}

@@ -1,0 +1,33 @@
+{
+  "_note": "Dates are ISO with the New York offset (-04:00 summer, -05:00 winter). 'end' is when the event stops being featured. Set dateTBD:true when the date is not yet known. The first non-expired featured event shows on the home page.",
+  "calendarEmbedUrl": null,
+  "events": [
+    {
+      "id": "trunk-or-treat-2026",
+      "title": "Trunk or Treat",
+      "featured": true,
+      "start": "2026-10-30T19:00:00-04:00",
+      "end": "2026-10-30T23:59:00-04:00",
+      "location": null,
+      "summary": "Costumes, candy, and neighbors. Friday, October 30 at 7pm.",
+      "url": "/events/trunk-or-treat/"
+    },
+    {
+      "id": "chicken-bbq-concert",
+      "title": "Chicken Bar-B-Que & Tailgate Concert",
+      "featured": true,
+      "dateTBD": true,
+      "summary": "Our annual dinner and music night. Date to be announced.",
+      "url": "/events/chicken-bbq-concert/"
+    }
+  ],
+  "recurring": [
+    {
+      "title": "Tuesday Night at Headquarters",
+      "when": "Every Tuesday, 7pm",
+      "where": "765 Amity Rd",
+      "summary": "Drill, Juniors, and Ambulance Corps meet. Visitors always welcome.",
+      "url": "/join/"
+    }
+  ]
+}

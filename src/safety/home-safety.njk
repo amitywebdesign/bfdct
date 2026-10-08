@@ -1,0 +1,36 @@
+---
+layout: layouts/page.njk
+title: Home safety tips
+section: safety
+eyebrow: Safety
+heading: Home safety tips
+lead: Small habits that keep your family safe, season by season.
+description: "Home fire safety tips from Bethany Fire: smoke and CO alarms, escape planning, wood stoves, generators, grilling, lithium-ion batteries, and brush fires."
+---
+{% set seasons = [
+  {id: "all", name: "All year"},
+  {id: "fall", name: "Fall"},
+  {id: "winter", name: "Winter"},
+  {id: "spring", name: "Spring"},
+  {id: "summer", name: "Summer"}
+] %}
+<section class="section">
+  <div class="container">
+    {%- for s in seasons %}
+    {%- set cards = safetyTips.tips | where("season", s.id) %}
+    {%- if cards.length %}
+    <h2 class="group-h">{{ s.name }}</h2>
+    <div class="grid grid--3 group-grid">
+      {%- for t in cards %}
+      <article class="card" id="{{ t.id }}"><div class="card__body">
+        <h3>{{ t.title }}</h3>
+        <p class="muted">{{ t.summary }}</p>
+        <ul>{% for tip in t.tips %}<li>{{ tip }}</li>{% endfor %}</ul>
+      </div></article>
+      {%- endfor %}
+    </div>
+    {%- endif %}
+    {%- endfor %}
+    <p class="small muted">These tips are general guidance. For an inspection, a permit, or a question about your home, please contact the Town Fire Marshal.</p>
+  </div>
+</section>

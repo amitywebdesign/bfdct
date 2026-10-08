@@ -1,0 +1,43 @@
+---
+layout: layouts/page.njk
+title: Ambulance Corps
+section: about
+eyebrow: Bethany Volunteer Ambulance Corps
+heading: Ambulance Corps
+lead: A division of the Bethany Volunteer Fireman's Association, staffed by neighbors who are trained to help.
+description: "The Bethany Volunteer Ambulance Corps: EMR and EMT volunteers, two BLS ambulances, and a first-responder vehicle. Includes an ambulance billing FAQ."
+---
+{% from "partials/icons.njk" import icon %}
+<section class="section">
+  <div class="container split split--wide-left">
+    <div class="prose">
+      <p class="lead">When a neighbor calls 911 for a medical emergency, our members respond. They are volunteers who have trained as Emergency Medical Responders (EMRs) and Emergency Medical Technicians (EMTs).</p>
+      <h2>Our equipment</h2>
+      <ul class="checklist">
+        <li>Two Basic Life Support (BLS) ambulances</li>
+        <li>A first-responder vehicle</li>
+        <li>Paramedic care comes from area agencies, who work with us when a patient needs advanced care.</li>
+      </ul>
+      <h2>When we meet</h2>
+      <p>The Ambulance Corps meets on <strong>Tuesdays</strong> at Headquarters, {{ site.address.street }}. Visitors are welcome.</p>
+    </div>
+    <aside class="callout callout--red">
+      <div class="icon-bubble">{{ icon("ambulance") }}</div>
+      <h3>Want to help?</h3>
+      <p>You can join as an EMR or EMT, or train with us. No experience needed to start.</p>
+      <p><a class="btn" href="/join/">Join us Tuesday</a></p>
+    </aside>
+  </div>
+</section>
+
+<section class="section section--deep" id="billing">
+  <div class="container narrow">
+    <div class="section__head"><p class="eyebrow">Billing</p><h2>Ambulance billing questions</h2></div>
+    <div class="faq">
+      {%- for item in billingFaq.items %}{% if item.a %}
+      <details><summary>{{ item.q }}</summary><div class="faq__a"><p>{{ item.a }}</p></div></details>
+      {%- endif %}{% endfor %}
+    </div>
+    <p><a class="btn" href="/contact/?topic=billing">Contact ambulance billing</a></p>
+  </div>
+</section>

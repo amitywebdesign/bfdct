@@ -1,0 +1,26 @@
+---
+layout: layouts/page.njk
+title: Chicken Bar-B-Que & Tailgate Concert
+section: events
+eyebrow: Community event
+heading: Chicken Bar-B-Que &amp; Tailgate Concert
+lead: Dinner and music with your neighbors.
+eventId: chicken-bbq-concert
+description: "The Bethany Fire Chicken Bar-B-Que & Tailgate Concert: dinner and live music with your neighbors. Save the date."
+---
+{% set ev = events.events | findById(eventId) %}
+{% set over = ev.end and (ev.end | isPast) %}
+<section class="section">
+  <div class="container narrow prose">
+    {%- if over %}
+    <p class="lead">Thank you to everyone who came, and to the sponsors and volunteers who made it happen. We'll announce next year's date here.</p>
+    {%- elif ev.dateTBD %}
+    <p class="lead">Save the date. This year's date has not been announced yet.</p>
+    <p>Check back here, or come to a Tuesday night and ask.</p>
+    {%- else %}
+    <p class="lead"><strong>{{ ev.start | dateLong }}, {{ ev.start | timeOnly }}</strong>{% if ev.location %} at {{ ev.location }}{% endif %}</p>
+    {%- endif %}
+    <p>The Chicken Bar-B-Que &amp; Tailgate Concert is one of our community events. Local sponsors help make it possible. <a href="/sponsors/">See our sponsors</a>.</p>
+    <p><a class="btn" href="/events/">All events</a></p>
+  </div>
+</section>

@@ -1,0 +1,46 @@
+---
+layout: layouts/page.njk
+title: Trunk or Treat
+section: events
+eyebrow: Community event
+heading: Trunk or Treat
+lead: Costumes, candy, and neighbors, hosted by Bethany Fire.
+eventId: trunk-or-treat-2026
+description: "Trunk or Treat with Bethany Fire: Friday, October 30 at 7pm. Sign up to hand out candy."
+---
+{% from "partials/forms.njk" import form, field, textarea %}
+{% set ev = events.events | findById(eventId) %}
+{% set over = ev.end and (ev.end | isPast) %}
+<section class="section">
+  <div class="container split split--wide-left">
+    <div class="prose">
+      {%- if over %}
+      <p class="lead">Thank you to everyone who came out. See you next year.</p>
+      {%- else %}
+      <p class="lead">Join us on <strong>{{ ev.start | dateLong }} at {{ ev.start | timeOnly }}</strong> for Trunk or Treat.</p>
+      {%- endif %}
+      <ul class="checklist">
+        {%- if not over %}
+        <li><strong>When:</strong> {{ ev.start | dateLong }}, {{ ev.start | timeOnly }}</li>
+        <li><strong>Where:</strong> {% if ev.location %}{{ ev.location }}{% else %}Location to be announced.{% endif %}</li>
+        {%- endif %}
+        <li>Kids in costume, neighbors handing out candy.</li>
+      </ul>
+      {%- if gallery %}
+      <h2>Photos</h2>
+      <div class="grid grid--3">{% for g in gallery %}<figure>{% image g.file, g.alt, "(min-width: 900px) 33vw, 100vw" %}</figure>{% endfor %}</div>
+      {%- endif %}
+    </div>
+    {%- if not over %}
+    <div>
+      <p class="eyebrow">Neighbors helping</p>
+      {% call form("trunk", forms, site.phone, "Sign me up", "Hand out candy") %}
+        <p class="small muted">Sign up and we'll get back to you with the details.</p>
+        <div class="field-row">{{ field("name", "Your name", "text", true, "", "name") }}{{ field("email", "Email", "email", true, "", "email") }}</div>
+        {{ field("phone", "Phone (optional)", "tel", false, "", "tel") }}
+        {{ textarea("notes", "Anything we should know? (optional)") }}
+      {% endcall %}
+    </div>
+    {%- endif %}
+  </div>
+</section>

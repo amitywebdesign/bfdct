@@ -1,0 +1,50 @@
+---
+layout: layouts/page.njk
+title: Stations
+section: about
+eyebrow: About
+heading: Our three stations
+lead: Center Station, Hinman Station, and Headquarters.
+description: "Bethany's three fire stations: Center Station at 460 Amity Rd, Hinman Station on Bear Hill Rd, and Headquarters at 765 Amity Rd."
+---
+{% from "partials/forms.njk" import form, field, textarea %}
+<section class="section">
+  <div class="container">
+    <h2 class="sr-only">Our stations</h2>
+    <div class="grid grid--3">
+      {%- for st in stations.stations %}
+      <article class="card">
+        <div class="card__photo">{% image st.photo, st.name, "(min-width: 900px) 33vw, 100vw" %}</div>
+        <div class="card__body">
+          <p class="card__meta">Since {{ st.year }}</p>
+          <h3>{{ st.name }}</h3>
+          <p><strong>{{ st.address }}</strong>, {{ site.address.city }}</p>
+          {%- if st.role %}<p>{{ st.role }}</p>{% endif %}
+        </div>
+      </article>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--deep">
+  <div class="container split">
+    <div>
+      <p class="eyebrow">Find us</p>
+      <h2>Headquarters</h2>
+      <p>{{ site.address.street }}, {{ site.address.city }}, {{ site.address.state }}. Open to visitors every Tuesday at 7pm.</p>
+      {% include "partials/map.njk" %}
+    </div>
+    <div id="tour">
+      <p class="eyebrow">Visit</p>
+      <h2>Request a station tour</h2>
+      <p>Groups, scout troops, and classrooms are welcome. Tell us who is coming and when, and we'll get back to you.</p>
+      {% call form("tour", forms, site.phone, "Request a tour") %}
+        <div class="field-row">{{ field("name", "Your name", "text", true, "", "name") }}{{ field("email", "Email", "email", true, "", "email") }}</div>
+        <div class="field-row">{{ field("phone", "Phone (optional)", "tel", false, "", "tel") }}{{ field("group_size", "About how many people?", "number") }}</div>
+        {{ field("preferred_dates", "Dates that might work", "text", false, "Tuesday evenings are best.") }}
+        {{ textarea("notes", "Anything else we should know?") }}
+      {% endcall %}
+    </div>
+  </div>
+</section>

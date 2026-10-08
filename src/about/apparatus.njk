@@ -1,0 +1,51 @@
+---
+layout: layouts/page.njk
+title: Apparatus
+section: about
+eyebrow: About
+heading: Our apparatus
+lead: The engines, tankers, and other vehicles Bethany's volunteers answer calls in.
+description: "Bethany Fire's apparatus: Engines 81, 82, and 83, Tankers 82 and 87, Brush 89, Lima units, utility vehicles, a special operations trailer, and a UTV."
+---
+<section class="section">
+  <div class="container">
+    {%- for g in apparatus.groups %}
+    {%- set groupUnits = apparatus.units | where("category", g.id) %}
+    {%- if groupUnits.length %}
+    <h2 class="group-h">{{ g.name }}</h2>
+    <div class="grid grid--3 group-grid">
+      {%- for u in groupUnits %}
+      <article class="unit{% if not u.photo %} unit--nophoto{% endif %}" id="{{ u.id }}">
+        {%- if u.photo %}{% image u.photo, u.unit, "(min-width: 900px) 33vw, 100vw" %}{% else %}<div class="unit__head"><h3>{{ u.unit }}</h3></div>{% endif %}
+        <div class="unit__body">
+          {%- if u.photo %}<h3>{{ u.unit }}</h3>{% endif %}
+          {%- if u.year or u.make %}<p class="unit__sub">{{ u.year }} {{ u.make }}</p>{% endif %}
+          {%- if u.role %}<p>{{ u.role }}</p>{% endif %}
+          {%- if u.pump or u.tank or u.foam %}
+          <dl class="specs">
+            {%- if u.pump %}<dt>Pump</dt><dd>{{ u.pump }}</dd>{% endif %}
+            {%- if u.tank %}<dt>Tank</dt><dd>{{ u.tank }}</dd>{% endif %}
+            {%- if u.foam %}<dt>Foam</dt><dd>{{ u.foam }}</dd>{% endif %}
+          </dl>
+          {%- elif not u.role %}<p class="unit__soon">Details and photo coming soon.</p>{% endif %}
+        </div>
+      </article>
+      {%- endfor %}
+    </div>
+    {%- endif %}
+    {%- endfor %}
+  </div>
+</section>
+
+<section class="section section--deep">
+  <div class="container">
+    <div class="section__head"><p class="eyebrow">Plain English</p><h2>What do the numbers mean?</h2></div>
+    <dl class="glossary">
+      <div><dt>GPM</dt><dd>Gallons per minute. It tells you how much water the pump can move. A bigger number means more water on the fire.</dd></div>
+      <div><dt>Tank</dt><dd>The water the truck carries. It lets crews start work before a hydrant or a tanker arrives.</dd></div>
+      <div><dt>Foam</dt><dd>Foam concentrate is mixed with water and can help put out some fires faster.</dd></div>
+      <div><dt>Tanker</dt><dd>A truck that carries a large amount of water, so it can be brought to places without hydrants.</dd></div>
+      <div><dt>Brush</dt><dd>Brush trucks are built to reach grass and woodland fires.</dd></div>
+    </dl>
+  </div>
+</section>

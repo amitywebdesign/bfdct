@@ -1,0 +1,4 @@
+{
+  "_note": "Treasurer: add Form 990 and the annual summary here after placing the PDFs in src/assets/docs/. Fields: title, file (e.g. /assets/docs/form-990-2025.pdf), year.",
+  "documents": []
+}

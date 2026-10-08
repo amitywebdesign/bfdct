@@ -1,0 +1,16 @@
+---
+layout: layouts/base.njk
+---
+<section class="page-hero on-dark">
+  <div class="container">
+    <p class="eyebrow"><a class="back" href="/news/">News</a></p>
+    <h1>{{ title }}</h1>
+    <p class="lead"><time datetime="{{ page.date | isoDate }}">{{ page.date | dateLong }}</time></p>
+  </div>
+</section>
+<article class="section">
+  <div class="container narrow prose">
+    {{ content | safe }}
+    <p><a href="/news/">&larr; All news</a></p>
+  </div>
+</article>
