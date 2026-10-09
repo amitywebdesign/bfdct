@@ -86,18 +86,60 @@ Town's form URL and the state fire-danger URL in `site.json` (`townLinks`), then
 `flags.burnPermitsPublished` to `true`. `npm run check` refuses to pass if the flag is on
 and anything is missing. Re-verify with the Marshal each year.
 
-## Hosting settings
+## Hosting
 
-Works on Cloudflare Pages or Netlify (both read `_redirects` and `_headers`):
+### GitHub Pages (set up in this repository)
+
+One-time setup (a person with admin rights on the repository):
+
+1. Repository **Settings > Pages > Build and deployment > Source: GitHub Actions**.
+2. That's it. Every push to the repository's default branch builds, checks, and
+   publishes the site (the `Deploy to GitHub Pages` workflow, under the **Actions** tab).
+   The address is shown in the workflow run and in Settings > Pages. It looks like
+   `https://<owner>.github.io/<repo>/`.
+
+How it behaves:
+
+- **Editing on GitHub publishes automatically** in a minute or two. If the checks find
+  a problem (broken link, bad JSON), the deploy stops and the live site stays as it was.
+  Open the failed run under Actions to see why.
+- **A daily rebuild** (about 5am Eastern) rolls over event dates, alerts, and years of
+  service. GitHub pauses scheduled runs after 60 days with no activity in the
+  repository; any commit, or **Actions > Deploy to GitHub Pages > Run workflow**, restarts it.
+- **Other branches** are only built and checked (`CI`), never published.
+- **Preview before it goes live:** `npm start` on a computer, or `npm run build:offline`
+  and open `_offline/index.html`.
+- **Custom domain** (for example bethanyfirect.org): set it in Settings > Pages, then tick
+  *Enforce HTTPS* once GitHub has issued the certificate, and run the workflow again.
+  The site adjusts its own links. **Read the DNS warning in
+  [LAUNCH-CHECKLIST.md](LAUNCH-CHECKLIST.md) first: it can break the department's email.**
+- Pages on a **private** repository needs a paid GitHub plan. Public repositories are free.
+
+What GitHub Pages can't do, and what the site does instead:
+
+| Feature | Netlify / Cloudflare | GitHub Pages (this site) |
+|---|---|---|
+| Old URLs (`/about-us`, ...) | 301 redirects (`_redirects`) | A small page at each old URL that redirects at once and names the new address |
+| Security headers | `_headers` file | The same Content-Security-Policy in a `<meta>` tag. Pages cannot send the `frame-ancestors` header, so other sites could embed this one in a frame |
+| Form service | any | Use Formspree or another hosted endpoint (Netlify Forms won't work) |
+
+Build it the same way locally with `npm run build:pages` (or `npm run check:pages`).
+Set `PATH_PREFIX=/<repo>/` and `SITE_URL=https://<owner>.github.io/<repo>` to mimic a
+project site.
+
+### Netlify or Cloudflare Pages
+
+Both read the generated `_redirects` and `_headers` files:
 
 - Build command: `npm run build`
 - Publish directory: `_site`
 - Node version: 20 or newer
 - Production: set `SITE_URL` to the final address (for example `https://bethanyfirect.org`)
 - Preview/staging builds: set `STAGING=1` so search engines skip them
-- Add a **daily rebuild** (a build hook called by a free scheduler). Events, alerts, and
-  "years of service" roll over at build time; the browser also hides expired alerts and
-  events between rebuilds.
+- Add a **daily rebuild** (a build hook called by a free scheduler).
+
+Old URLs live in `src/_data/redirectMap.json` and feed both hosts. The browser also
+hides expired alerts and events between rebuilds.
 
 ## Keep it fresh
 

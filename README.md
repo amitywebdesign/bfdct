@@ -9,7 +9,12 @@ npm start          # preview at http://localhost:8080
 npm run build      # writes the site to _site/
 npm run check      # build + QA (links, headings, alt text, contrast, launch blockers)
 npm run build:offline   # a copy you can open by double-clicking _offline/index.html
+npm run build:pages     # the GitHub Pages build (meta CSP, redirect pages)
 ```
+
+Publishing: the **Deploy to GitHub Pages** workflow builds, checks, and publishes the
+default branch. Turn it on once under Settings > Pages > Source: **GitHub Actions**.
+Details and custom-domain steps are in [docs/HOW-TO-UPDATE.md](docs/HOW-TO-UPDATE.md#hosting).
 
 > **Seeing a plain white page?** The normal build (`_site/`) uses links like `/assets/css/main.css`,
 > which only work when served from a website root. Opening `_site/index.html` straight from disk
@@ -25,8 +30,9 @@ src/_data/           editable content (alerts, events, sponsors, apparatus, ...)
 src/_includes/       layouts and partials (header, footer, forms)
 src/assets/          css, js, images, documents
 src/*.njk, src/*/    pages
-src/_redirects       old URLs -> new pages
-src/_headers         security headers (Content-Security-Policy)
+src/_data/redirectMap.json  old URLs -> new pages (feeds _redirects and the Pages redirect pages)
+src/_data/csp.js     the Content-Security-Policy (feeds _headers and the Pages <meta> tag)
+.github/workflows/   ci.yml (build + check) and pages.yml (deploy)
 scripts/check.mjs    post-build QA
 ```
 

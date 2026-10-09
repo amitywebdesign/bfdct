@@ -6,6 +6,17 @@ import path from "node:path";
 
 const OUT = "_site";
 const strict = process.argv.includes("--strict");
+// GitHub Pages mode: PAGES=1 (meta CSP + redirect pages), PATH_PREFIX=/bfdct/ (project sites), SITE_URL=https://...
+const PAGES = process.env.PAGES === "1";
+const PREFIX = "/" + (process.env.PATH_PREFIX || "/").replace(/^\/+|\/+$/g, "");
+const PREFIX_SLASH = PREFIX === "/" ? "/" : PREFIX + "/";
+const SITE_URL = process.env.SITE_URL ? process.env.SITE_URL.replace(/\/$/, "") : null;
+// "/bfdct/about/" -> "/about/";  null when a root-relative URL is missing the prefix.
+const unprefix = (u) => {
+  if (PREFIX === "/") return u;
+  if (u === PREFIX) return "/";
+  return u.startsWith(PREFIX_SLASH) ? "/" + u.slice(PREFIX_SLASH.length) : null;
+};
 const errors = [];
 const warnings = [];
 const blockers = [];
@@ -35,6 +46,31 @@ const redirects = fs.existsSync(`${OUT}/_redirects`)
 for (const [from, to] of redirects) {
   if (!urlToFile(to)) errors.push(`_redirects: ${from} -> ${to} points at a page that does not exist`);
 }
+if (PAGES && redirects.length) errors.push("_redirects was emitted in a PAGES build (GitHub Pages ignores it; redirect pages should be used)");
+if (!PAGES && !redirects.length) errors.push("_redirects is missing or empty");
+
+// GitHub Pages cannot send 301s: every old URL must be a page that redirects to a real page.
+const redirectMap = readJsonEarly("src/_data/redirectMap.json").list;
+const stubFiles = new Set();
+function readJsonEarly(f) { return JSON.parse(fs.readFileSync(f, "utf8")); }
+for (const { from, to } of redirectMap) {
+  const stubPath = path.join(OUT, from, "index.html");
+  if (!PAGES) {
+    if (fs.existsSync(stubPath)) errors.push(`redirect page ${from}/ was emitted outside a PAGES build (it would shadow the 301 on Netlify/Cloudflare)`);
+    continue;
+  }
+  stubFiles.add(path.relative(OUT, stubPath));
+  if (!fs.existsSync(stubPath)) { errors.push(`redirect page missing for old URL ${from}`); continue; }
+  const stub = fs.readFileSync(stubPath, "utf8");
+  const refresh = stub.match(/<meta http-equiv="refresh" content="0; url=([^"]+)"/)?.[1];
+  if (!refresh) { errors.push(`redirect page ${from}: no meta refresh`); continue; }
+  const resolved = new URL(refresh, `http://x${PREFIX_SLASH}${from.replace(/^\//, "")}/`).pathname; // as the browser resolves it
+  const local = unprefix(resolved);
+  if (local === null || !urlToFile(local)) errors.push(`redirect page ${from}: refresh target ${refresh} resolves to ${resolved}, which is not a page`);
+  else if (local !== to) errors.push(`redirect page ${from}: goes to ${local}, expected ${to}`);
+  const canon = stub.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+  if (SITE_URL && canon !== SITE_URL + to) errors.push(`redirect page ${from}: canonical is ${canon}, expected ${SITE_URL + to}`);
+}
 
 const idsByFile = new Map();
 for (const f of pages) {
@@ -45,6 +81,7 @@ for (const f of pages) {
 for (const f of pages) {
   const html = fs.readFileSync(f, "utf8");
   const rel = path.relative(OUT, f);
+  if (stubFiles.has(rel)) continue; // redirect pages are checked above
   const is404 = rel === "404.html";
   const tag = (msg) => `${rel}: ${msg}`;
 
@@ -73,18 +110,41 @@ for (const f of pages) {
     seen.add(m[1]);
   }
 
-  for (const m of html.matchAll(/\s(?:href|src)="([^"]*)"/g)) {
-    const u = m[1];
-    if (!u.startsWith("/") || u.startsWith("//")) continue;
+  const srcsetUrls = [...html.matchAll(/\ssrcset="([^"]*)"/g)].flatMap((m) => m[1].split(",").map((x) => x.trim().split(/\s+/)[0]));
+  const urls = [...[...html.matchAll(/\s(?:href|src)="([^"]*)"/g)].map((m) => m[1]), ...srcsetUrls];
+  for (const raw of urls) {
+    if (!raw.startsWith("/") || raw.startsWith("//")) continue;
+    const u = unprefix(raw);
+    if (u === null) { errors.push(tag(`link ${raw} is missing the ${PREFIX_SLASH} prefix (would 404 on the live site)`)); continue; }
     const target = urlToFile(u);
     const isRedirected = redirects.some(([from]) => from === u.split("#")[0].split("?")[0]);
     if (!target && !isRedirected) {
-      errors.push(tag(`broken internal link ${u}`));
+      errors.push(tag(`broken internal link ${raw}`));
       continue;
     }
     const frag = u.split("#")[1];
-    if (frag && target?.endsWith(".html") && !idsByFile.get(target)?.has(frag)) errors.push(tag(`link ${u}: no element with id "${frag}"`));
+    if (frag && target?.endsWith(".html") && !idsByFile.get(target)?.has(frag)) errors.push(tag(`link ${raw}: no element with id "${frag}"`));
   }
+
+  // Canonical + social URLs must be absolute and on the real site address.
+  const canonical = html.match(/<link rel="canonical" href="([^"]*)"/)?.[1];
+  const og = html.match(/property="og:image" content="([^"]*)"/)?.[1];
+  if (SITE_URL) {
+    if (!canonical?.startsWith(SITE_URL + "/")) errors.push(tag(`canonical ${canonical} is not under SITE_URL ${SITE_URL}`));
+    if (!og?.startsWith(SITE_URL + "/")) errors.push(tag(`og:image ${og} is not under SITE_URL ${SITE_URL}`));
+  } else if (PREFIX !== "/") warnings.push(tag("PATH_PREFIX is set but SITE_URL is not: canonical URLs will use the default domain"));
+
+  // GitHub Pages: the CSP must travel in a <meta> tag (no headers), and only there.
+  const metaCsp = html.match(/<meta http-equiv="Content-Security-Policy" content="([^"]*)"/)?.[1];
+  if (PAGES) {
+    if (!metaCsp) errors.push(tag("no <meta> Content-Security-Policy (GitHub Pages cannot send headers)"));
+    else {
+      const policy = metaCsp.replace(/&#39;/g, "'");
+      if (/frame-ancestors/.test(policy)) errors.push(tag("meta CSP contains frame-ancestors, which browsers ignore in <meta>"));
+      if (!/script-src 'self'/.test(policy)) errors.push(tag("meta CSP lacks script-src 'self'"));
+      if (html.indexOf("Content-Security-Policy") > html.search(/<(?:script|link)\b/)) errors.push(tag("meta CSP comes after a script/link tag, so it would not protect it"));
+    }
+  } else if (metaCsp) errors.push(tag("<meta> CSP present in a non-Pages build (the _headers file carries it there)"));
   for (const m of html.matchAll(/\shref="#([^"]+)"/g)) if (!idsByFile.get(f).has(m[1])) errors.push(tag(`in-page link #${m[1]} has no target`));
 
   if (/undefined|\[object |\{\{|\{%|NaN/.test(html.replace(/<script[\s\S]*?<\/script>/g, ""))) {

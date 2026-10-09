@@ -6,10 +6,12 @@
   "type": "module",
   "scripts": {
     "start": "eleventy --serve",
-    "build": "ELEVENTY_RUN_MODE=build eleventy",
-    "check": "ELEVENTY_RUN_MODE=build eleventy && node scripts/check.mjs",
-    "build:offline": "OFFLINE=1 ELEVENTY_RUN_MODE=build eleventy",
-    "clean": "rm -rf _site _offline .cache"
+    "build": "eleventy",
+    "check": "eleventy && node scripts/check.mjs",
+    "build:offline": "cross-env OFFLINE=1 eleventy",
+    "build:pages": "cross-env PAGES=1 eleventy",
+    "check:pages": "cross-env PAGES=1 eleventy && cross-env PAGES=1 node scripts/check.mjs",
+    "clean": "node scripts/clean.mjs"
   },
   "engines": {
     "node": ">=20"
@@ -19,6 +21,7 @@
     "@11ty/eleventy-img": "7.0.0",
     "@fontsource/barlow-condensed": "5.3.0",
     "@fontsource/source-sans-3": "5.3.0",
+    "cross-env": "10.1.0",
     "luxon": "3.7.2"
   }
 }

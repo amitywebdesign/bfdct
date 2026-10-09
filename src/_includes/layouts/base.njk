@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  {%- if env.pages %}
+  {#- GitHub Pages cannot send headers, so the CSP and referrer policy go here. Must stay ahead of any script or style. #}
+  <meta http-equiv="Content-Security-Policy" content="{{ csp.meta }}">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  {%- endif %}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {%- set fullTitle = site.name + " | Bethany, CT" if page.url == "/" else title + " | " + site.shortName %}
   <title>{{ fullTitle }}</title>

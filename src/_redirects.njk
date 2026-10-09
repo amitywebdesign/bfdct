@@ -1,0 +1,11 @@
+---
+permalink: /_redirects
+eleventyExcludeFromCollections: true
+---
+# Old bethanyfirect.org URLs -> new pages (Netlify / Cloudflare Pages format).
+# Generated from src/_data/redirectMap.json. Folder URLs get their trailing slash
+# automatically, so /events, /contact, and /ambulance-corps need no rule.
+{% for r in redirectMap.list -%}
+{{ r.from }} {{ r.to }} 301
+{{ r.from }}/ {{ r.to }} 301
+{% endfor %}

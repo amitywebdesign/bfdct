@@ -1,3 +1,4 @@
+import { EleventyHtmlBasePlugin } from "@11ty/eleventy";
 import { DateTime } from "luxon";
 import Image from "@11ty/eleventy-img";
 import fs from "node:fs";
@@ -10,6 +11,11 @@ const OFFLINE = process.env.OFFLINE === "1";
 const OUT = OFFLINE ? "_offline" : "_site";
 
 export default function (eleventyConfig) {
+  // Hosting under a sub-path (GitHub Pages project sites live at /<repo>/):
+  // set PATH_PREFIX=/bfdct/ and every root-relative link, src, and srcset in the
+  // built HTML is prefixed automatically. Unset (the default) leaves URLs alone.
+  eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
+
   // ---- Drafts: `draft: true` posts show in `npm start` but never in a real build
   eleventyConfig.addPreprocessor("drafts", "*", (data) => {
     if (data.draft && process.env.ELEVENTY_RUN_MODE === "build") return false;
@@ -21,8 +27,6 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets/docs");
   eleventyConfig.addPassthroughCopy("src/assets/img/*.{svg,png,ico,webp,jpg}");
   eleventyConfig.addPassthroughCopy("src/assets/img/sponsors");
-  eleventyConfig.addPassthroughCopy("src/_redirects");
-  eleventyConfig.addPassthroughCopy("src/_headers");
   // Self-hosted fonts (no third-party requests): only the weights the CSS uses.
   const fontFiles = {
     "node_modules/@fontsource/barlow-condensed/files/barlow-condensed-latin-600-normal.woff2": "assets/fonts/barlow-condensed-600.woff2",
@@ -44,7 +48,18 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("timeOnly", (v) => dt(v).toFormat("h:mm a").replace(":00", ""));
   eleventyConfig.addFilter("isoDate", (v) => dt(v).toISODate());
   eleventyConfig.addFilter("isoDateTime", (v) => dt(v).toISO());
-  eleventyConfig.addFilter("absoluteUrl", (p, base) => new URL(p, base).href);
+  // Join, don't resolve: `new URL("/about/", "https://x.github.io/bfdct")` would drop /bfdct.
+  eleventyConfig.addFilter("absoluteUrl", (p, base) => {
+    if (typeof p !== "string") return ""; // unpublished pages have page.url === false
+    return base.replace(/\/$/, "") + (p.startsWith("/") ? p : "/" + p);
+  });
+  // Path from one site URL to another, for redirect stubs: ("/home", "/") -> "../"
+  eleventyConfig.addFilter("relativePath", (from, to) => {
+    const fromDir = from.endsWith("/") ? from : from + "/";
+    let rel = path.posix.relative(fromDir, to) || ".";
+    if (to.endsWith("/") && !rel.endsWith("/")) rel += "/";
+    return rel;
+  });
   eleventyConfig.addFilter("json", (v) => JSON.stringify(v));
   eleventyConfig.addFilter("isPast", (v) => dt(v) < DateTime.now().setZone(TZ));
   eleventyConfig.addFilter("upcoming", (events) =>
@@ -137,6 +152,7 @@ export default function (eleventyConfig) {
 
   return {
     dir: { input: "src", output: OUT, includes: "_includes", data: "_data" },
+    pathPrefix: process.env.PATH_PREFIX || "/",
     templateFormats: ["njk", "md", "html"],
     markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk",

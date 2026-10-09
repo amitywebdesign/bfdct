@@ -38,7 +38,9 @@ mail settings. Before touching DNS:
 
 1. Find out who the registrar is and who hosts the mail.
 2. Write down **every** existing DNS record (especially MX, SPF, DKIM, DMARC) and every email address.
-3. Change only the website records (the root/`www` A/CNAME records).
+3. Change only the website records (the root/`www` A/CNAME records). For GitHub Pages,
+   follow GitHub's "Managing a custom domain for your GitHub Pages site" page for the exact
+   records, and leave MX, SPF, DKIM, and DMARC alone.
 4. Send a test message to and from each address afterward.
 5. Pick one canonical domain (bethanyfirect.org or bethanyctfire.org) and redirect the other.
    Set `SITE_URL` to it.
@@ -48,7 +50,9 @@ mail settings. Before touching DNS:
 - [ ] `npm run check -- --strict` passes
 - [ ] All six forms connected and test-submitted; each reaches the right inbox
 - [ ] Every address tested after the DNS change
-- [ ] Old URLs redirect (`/home`, `/about-us`, `/apparatus`, `/application-information`, ...)
+- [ ] GitHub Pages: Settings > Pages > Source is "GitHub Actions", the deploy workflow is green, and *Enforce HTTPS* is ticked
+- [ ] Old URLs redirect (`/home`, `/about-us`, `/apparatus`, `/application-information`, ...). On GitHub Pages these are redirect pages, not 301s, and they only help once the site is on the real domain
+- [ ] Safety-net check: framing protection (`frame-ancestors`) can't be set on GitHub Pages; Netlify or Cloudflare can
 - [ ] Google Business Profile updated (address, phone, Tuesday 7pm, link)
 - [ ] Search Console: submit `/sitemap.xml`
 - [ ] Mobile Lighthouse run (target 90+) once real photos are in

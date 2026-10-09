@@ -1,0 +1,11 @@
+{
+  "_note": "Old bethanyfirect.org URLs and where they go now. Netlify/Cloudflare read these as 301s via _redirects; GitHub Pages gets a small redirect page at each old URL instead.",
+  "list": [
+    { "from": "/home", "to": "/" },
+    { "from": "/about-us", "to": "/about/" },
+    { "from": "/apparatus", "to": "/about/apparatus/" },
+    { "from": "/application-information", "to": "/join/" },
+    { "from": "/application-information/juniors-program", "to": "/join/juniors/" },
+    { "from": "/emergency-preparedness-safety", "to": "/safety/" }
+  ]
+}

@@ -1,0 +1,68 @@
+name: Deploy to GitHub Pages
+
+# Publishes the site from the repository's default branch.
+# One-time setup: repository Settings > Pages > Source: "GitHub Actions".
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    # Daily rebuild so event dates, alerts, and "years of service" roll over.
+    - cron: "17 9 * * *"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time; let a running deploy finish rather than cancel it.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    # Other branches are covered by ci.yml. Scheduled runs always use the default branch.
+    if: github.event_name == 'schedule' || github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    env:
+      PAGES: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      # Outputs the site's real address and sub-path: https://<owner>.github.io/<repo>
+      # with base_path "/<repo>", or the custom domain with an empty base_path.
+      - id: pages
+        uses: actions/configure-pages@v5
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Build
+        run: npx eleventy
+        env:
+          PATH_PREFIX: ${{ steps.pages.outputs.base_path }}
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
+
+      # Fails the deploy on broken links, missing prefixes, bad contrast, and so on.
+      - name: Check
+        run: node scripts/check.mjs
+        env:
+          PATH_PREFIX: ${{ steps.pages.outputs.base_path }}
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

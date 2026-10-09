@@ -1,0 +1,21 @@
+---
+pagination:
+  data: redirectMap.list
+  size: 1
+  alias: r
+layout: false
+eleventyExcludeFromCollections: true
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>This page has moved | {{ site.shortName }}</title>
+  <link rel="canonical" href="{{ r.to | absoluteUrl(siteUrl) }}">
+  <meta http-equiv="refresh" content="0; url={{ r.from | relativePath(r.to) }}">
+</head>
+<body>
+  <p>This page has moved to <a href="{{ r.to }}">{{ r.to | absoluteUrl(siteUrl) }}</a>.</p>
+</body>
+</html>
