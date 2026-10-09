@@ -16,6 +16,12 @@ export default function (eleventyConfig) {
   // built HTML is prefixed automatically. Unset (the default) leaves URLs alone.
   eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 
+  // ---- Start every real build from an empty output folder, so switching between the
+  // default, Pages, and offline modes can never leave stale files behind.
+  eleventyConfig.on("eleventy.before", ({ runMode }) => {
+    if (runMode === "build") fs.rmSync(OUT, { recursive: true, force: true });
+  });
+
   // ---- Drafts: `draft: true` posts show in `npm start` but never in a real build
   eleventyConfig.addPreprocessor("drafts", "*", (data) => {
     if (data.draft && process.env.ELEVENTY_RUN_MODE === "build") return false;
@@ -51,6 +57,7 @@ export default function (eleventyConfig) {
   // Join, don't resolve: `new URL("/about/", "https://x.github.io/bfdct")` would drop /bfdct.
   eleventyConfig.addFilter("absoluteUrl", (p, base) => {
     if (typeof p !== "string") return ""; // unpublished pages have page.url === false
+    if (/^https?:\/\//.test(p)) return p; // already absolute (e.g. an ogImage on another host)
     return base.replace(/\/$/, "") + (p.startsWith("/") ? p : "/" + p);
   });
   // Path from one site URL to another, for redirect stubs: ("/home", "/") -> "../"

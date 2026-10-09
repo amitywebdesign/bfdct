@@ -1,7 +1,8 @@
 name: Deploy to GitHub Pages
 
 # Publishes the site from the repository's default branch.
-# One-time setup: repository Settings > Pages > Source: "GitHub Actions".
+# One-time setup: repository Settings > Pages > Build and deployment > Source: "GitHub Actions".
+# (Not "Deploy from a branch": that runs GitHub's Jekyll on the source files and fails.)
 on:
   push:
   workflow_dispatch:
@@ -13,11 +14,6 @@ permissions:
   contents: read
   pages: write
   id-token: write
-
-# One deploy at a time; let a running deploy finish rather than cancel it.
-concurrency:
-  group: pages
-  cancel-in-progress: false
 
 jobs:
   build:
@@ -60,6 +56,12 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    # One deploy at a time; let a running deploy finish rather than cancel it. This is on
+    # the job, not the workflow, so runs on other branches (whose jobs are skipped) can
+    # never take the slot of a pending deploy.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

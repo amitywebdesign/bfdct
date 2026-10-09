@@ -3,6 +3,7 @@
 // Form endpoints and analytics are allowed automatically from forms.json / site.json.
 import site from "./site.json" with { type: "json" };
 import forms from "./forms.json" with { type: "json" };
+import events from "./events.json" with { type: "json" };
 
 const originOf = (url) => {
   try { return new URL(url).origin; } catch { return null; }
@@ -15,6 +16,7 @@ export default function () {
       .map(([, f]) => originOf(f.endpoint))
       .filter(Boolean)
   )];
+  const calendar = [originOf(events.calendarEmbedUrl)].filter(Boolean); // the embed on /events/
   const analytics = site.analytics.plausibleDomain ? ["https://plausible.io"] : [];
 
   const directives = {
@@ -24,7 +26,7 @@ export default function () {
     "img-src": ["'self'", "data:", "https:"],
     "font-src": ["'self'"],
     "connect-src": ["'self'", ...formOrigins, ...analytics],
-    "frame-src": ["https://www.openstreetmap.org", "https://www.youtube-nocookie.com", "https://calendar.google.com"],
+    "frame-src": ["https://www.openstreetmap.org", "https://www.youtube-nocookie.com", ...calendar],
     "form-action": ["'self'", ...formOrigins, "https://www.paypal.com"],
     "base-uri": ["'self'"],
     "object-src": ["'none'"],

@@ -52,6 +52,12 @@ if (!PAGES && !redirects.length) errors.push("_redirects is missing or empty");
 // GitHub Pages cannot send 301s: every old URL must be a page that redirects to a real page.
 const redirectMap = readJsonEarly("src/_data/redirectMap.json").list;
 const stubFiles = new Set();
+for (const r of redirectMap) {
+  if (!/^\/[^#?]*[^/#?]$/.test(r.from || "")) errors.push(`redirectMap.json: "from" must start with / and not end with / (got ${JSON.stringify(r.from)})`);
+  if (!/^\/[^#?]*$/.test(r.to || "")) errors.push(`redirectMap.json: "to" must be a path starting with / and without # or ? (got ${JSON.stringify(r.to)})`);
+}
+if (PAGES && fs.existsSync(`${OUT}/_headers`)) errors.push("_headers was emitted in a PAGES build (GitHub Pages ignores it)");
+if (!PAGES && !fs.existsSync(`${OUT}/_headers`)) errors.push("_headers is missing");
 function readJsonEarly(f) { return JSON.parse(fs.readFileSync(f, "utf8")); }
 for (const { from, to } of redirectMap) {
   const stubPath = path.join(OUT, from, "index.html");

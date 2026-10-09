@@ -13,3 +13,11 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check
+      # The GitHub Pages build (sub-path, meta CSP, redirect pages), so a branch or PR
+      # that breaks it is caught before it is merged.
+      - name: Check the GitHub Pages build
+        run: npx eleventy && node scripts/check.mjs
+        env:
+          PAGES: "1"
+          PATH_PREFIX: /bfdct/
+          SITE_URL: https://example.github.io/bfdct

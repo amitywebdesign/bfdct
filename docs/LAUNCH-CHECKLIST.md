@@ -43,7 +43,10 @@ mail settings. Before touching DNS:
    records, and leave MX, SPF, DKIM, and DMARC alone.
 4. Send a test message to and from each address afterward.
 5. Pick one canonical domain (bethanyfirect.org or bethanyctfire.org) and redirect the other.
-   Set `SITE_URL` to it.
+   On GitHub Pages, set the chosen domain under Settings > Pages (the workflow then picks up
+   the right `SITE_URL` by itself). A Pages site serves only one custom domain, so forward
+   the other domain at the registrar (most registrars offer "web forwarding"). On Netlify or
+   Cloudflare, set `SITE_URL` yourself.
 
 ## Launch-day steps
 

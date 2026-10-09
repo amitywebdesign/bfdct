@@ -92,21 +92,31 @@ and anything is missing. Re-verify with the Marshal each year.
 
 One-time setup (a person with admin rights on the repository):
 
-1. Repository **Settings > Pages > Build and deployment > Source: GitHub Actions**.
-2. That's it. Every push to the repository's default branch builds, checks, and
-   publishes the site (the `Deploy to GitHub Pages` workflow, under the **Actions** tab).
-   The address is shown in the workflow run and in Settings > Pages. It looks like
-   `https://<owner>.github.io/<repo>/`.
+1. Repository **Settings > Pages > Build and deployment > Source**, and choose
+   **GitHub Actions**. GitHub's default is "Deploy from a branch". **That option does not
+   work for this site**: it runs GitHub's own Jekyll on the source files and fails with
+   `Liquid syntax error ... Unknown tag 'set'`.
+2. Open the **Actions** tab, pick **Deploy to GitHub Pages**, and click **Run workflow**
+   (or re-run the failed run). The push that added the workflow ran before Pages was set
+   up, so it failed, and turning Pages on does not re-run it.
+3. After that, every push to the repository's default branch builds, checks, and
+   publishes the site automatically. The address is shown in the workflow run and in
+   Settings > Pages. It looks like `https://<owner>.github.io/<repo>/`.
 
 How it behaves:
 
+- **The site is public as soon as it is published**, and search engines can find it.
+  Pages that still say "coming soon" will be visible. Nothing can be password-protected
+  on a free plan.
 - **Editing on GitHub publishes automatically** in a minute or two. If the checks find
   a problem (broken link, bad JSON), the deploy stops and the live site stays as it was.
   Open the failed run under Actions to see why.
-- **A daily rebuild** (about 5am Eastern) rolls over event dates, alerts, and years of
-  service. GitHub pauses scheduled runs after 60 days with no activity in the
-  repository; any commit, or **Actions > Deploy to GitHub Pages > Run workflow**, restarts it.
-- **Other branches** are only built and checked (`CI`), never published.
+- **A daily rebuild** (09:17 UTC, early morning Eastern) rolls over event dates, alerts,
+  and years of service. GitHub switches scheduled workflows off after 60 days with no
+  activity in a public repository. If the rebuild stops, open **Actions > Deploy to
+  GitHub Pages** and click **Enable workflow**.
+- **Other branches and pull requests** get the same build and checks (the `CI` workflow,
+  including the GitHub Pages build) but are never published.
 - **Preview before it goes live:** `npm start` on a computer, or `npm run build:offline`
   and open `_offline/index.html`.
 - **Custom domain** (for example bethanyfirect.org): set it in Settings > Pages, then tick
@@ -120,7 +130,9 @@ What GitHub Pages can't do, and what the site does instead:
 | Feature | Netlify / Cloudflare | GitHub Pages (this site) |
 |---|---|---|
 | Old URLs (`/about-us`, ...) | 301 redirects (`_redirects`) | A small page at each old URL that redirects at once and names the new address |
-| Security headers | `_headers` file | The same Content-Security-Policy in a `<meta>` tag. Pages cannot send the `frame-ancestors` header, so other sites could embed this one in a frame |
+| Content-Security-Policy and referrer policy | `_headers` file | The same policy in `<meta>` tags. Pages cannot send the `frame-ancestors` part, so other sites could embed this one in a frame |
+| Other headers (`X-Content-Type-Options`, `Permissions-Policy`, long caching for fonts and photos) | `_headers` file | Not available. The `_headers` file is not published on Pages |
+| `robots.txt` | works | Search engines only read it at the top of a domain, so on a `github.io/<repo>/` address it is ignored. It works once the site is on its own domain |
 | Form service | any | Use Formspree or another hosted endpoint (Netlify Forms won't work) |
 
 Build it the same way locally with `npm run build:pages` (or `npm run check:pages`).

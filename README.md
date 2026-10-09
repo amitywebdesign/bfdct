@@ -13,7 +13,8 @@ npm run build:pages     # the GitHub Pages build (meta CSP, redirect pages)
 ```
 
 Publishing: the **Deploy to GitHub Pages** workflow builds, checks, and publishes the
-default branch. Turn it on once under Settings > Pages > Source: **GitHub Actions**.
+default branch. Set it up once: Settings > Pages > Source: **GitHub Actions** (not
+"Deploy from a branch", which fails), then Actions > Deploy to GitHub Pages > Run workflow.
 Details and custom-domain steps are in [docs/HOW-TO-UPDATE.md](docs/HOW-TO-UPDATE.md#hosting).
 
 > **Seeing a plain white page?** The normal build (`_site/`) uses links like `/assets/css/main.css`,
